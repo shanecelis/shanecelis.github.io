@@ -1,0 +1,491 @@
++++
+title = "Object Oriented Programming in Rust---Yuck"
+date = "2023-05-07"
++++
+
+# Introduction
+
+I remember a coworker telling me you can write object oriented code in any
+language even C. We were writing Java at the time, and I was confused because
+obviously the C language does not natively support object oriented programming
+but [he was
+right](https://staff.washington.edu/gmobus/Academics/TCES202/Moodle/OO-ProgrammingInC.html).
+Many people have written object oriented code in C. For instance
+[GTK](https://www.gtk.org) uses the [GObject
+library](https://en.wikipedia.org/wiki/GObject). So object oriented programming
+can be done in C but the language does not explicitly facilitate it. Rust is
+another language that does not natively support object oriented programming, but
+they can't stop us from doing object oriented programming if that's what we're
+determined to do.
+
+# Object Oriented Programming
+
+What is object oriented programming? We'll ignore the fact that it's so
+conventional that you may be well acquainted with it. You can define classes
+that may implement interfaces. You can extend classes that modify their
+behavior. A caller---that can interact with a class---can interact with any of
+its subclasses. A caller---that can interact with an interface---can interact
+with any of its implementers.
+
+## Polymorphism
+
+What is polymorphism? Polymorphism is the ability of subclasses to redefine
+their parent class's methods. And a caller does not need to know the class
+exists yet it can still interact with the subclass properly. 
+
+Polymorphism is traditionally implemented with a virtual method table that each
+subclass maintains. This does introduce a small overhead since the method is not
+known at compile time and there's an lookup for a virtual method call. This is
+also sometimes called dynamic dispatch.
+
+# A Model Animal
+
+Rust doesn't have interfaces, but it does have traits. But let's try to use a
+trait as though it were an interface. We'll try and create the canonical object
+oriented animal
+example.
+
+```{.rust .cb-nb session=a}
+trait Animal {
+  fn cry();
+  fn sleep();
+  fn roam();
+}
+```
+
+## A Cat
+
+Let's make a `Cat` "class" to implement it. Rust calls it a struct.
+
+```{.rust .cb-nb session=a}
+struct Cat {}
+```
+
+```{.rust .cb-nb session=a}
+
+impl Animal for Cat {
+  fn cry() {
+    println!("meow");
+  }
+  fn sleep() {
+    println!("Zzzz");
+  }
+  fn roam() {
+    println!("patter patter pounce");
+  }
+}
+```
+
+### Run it
+
+We can exercise it like so.
+
+```{.rust .cb-nb session=a}
+Cat::cry();
+```
+
+However, this `cry()` is basically a static method in the parlance of Java or
+C#. Static methods aren't generally capable of using polymorphism. 
+
+### Static Polymorphism 
+
+However, rust can do something that looks like static polymorphism. Say we had
+another "class" called `Bird`.
+
+```{.rust .cb-nb session=a}
+struct Bird {}
+
+impl Animal for Bird {
+  fn cry() {
+    println!("chirp");
+  }
+  fn sleep() {
+    println!("Zzzz");
+  }
+  fn roam() {
+    println!("flit flit flurp");
+  }
+}
+```
+
+We can of couse make calls on the class like so.
+
+```{.rust .cb-nb session=a}
+Bird::roam();
+```
+
+But we can also use rust's generics to write code that will handle any `Animal`
+struct without requiring an instance.
+
+```{.rust .cb-nb session=a}
+fn cry_to_sleep<T: Animal>() {
+  T::cry();
+  T::cry();
+  T::sleep();
+}
+```
+
+Now we can exercise it. You might think we'd do `call_me_sleepy<Cat>()` but rust
+instead uses `cry_to_sleep::<Cat>()`. They call the `::<Type>` a turbo fish.
+I don't know why. Does it `::<>` look like a fish?
+
+```{.rust .cb-nb session=a}
+cry_to_sleep::<Cat>();
+```
+
+```{.rust .cb-nb session=a}
+cry_to_sleep::<Bird>();
+```
+
+I actually think this is pretty cool. It was only recently that [C# got
+interface static
+methods](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members),
+and you can use them to do all kinds of cool things like make generics work
+seamlessly with math operators in C#.
+
+This "static polymorphism" though is limited in the sense that the type must be
+known at compile time. Each type requires the compiler to generate a new
+function, which can cause [code
+bloat](https://dirtyhandscoding.github.io/posts/on-cpp-code-bloat.html). It's
+also not as flexible as dynamic polymorphism which can call types that were not
+even present at compile time.
+
+# Take Two
+
+What we'd like instead is to call these functions on an instance of the object.
+To do that in rust, we add the `&self` parameters.
+
+```{.rust .cb-nb session=c}
+trait Animal {
+  fn cry(&self);
+  fn sleep(&self);
+  fn roam(&self);
+}
+
+struct Cat {}
+
+impl Animal for Cat {
+  fn cry(&self) {
+    println!("meow");
+  }
+  fn sleep(&self) {
+    println!("Zzzz");
+  }
+  fn roam(&self) {
+    println!("patter patter pounce");
+  }
+}
+```
+
+Now let's try and run it.
+
+```{.rust .cb-nb session=c}
+let cat = Cat {};
+cat.cry();
+```
+
+All right. It does what we expect. It does not offer any subclass polymorphism.
+There's no means to inherit `Cat`'s behavior. But we can achieve another kind of
+polymorphsimBut we can achieve another kind of polymorphism.
+
+## Static Interface Polymorphism
+
+We can write our `cry_to_sleep()` function for `Animal`, which is a kind of
+interface polymorphism. It will work with any implementer of `Animal`. 
+
+```{.rust .cb-nb session=c}
+fn cry_to_sleep<T: Animal>(animal: T) {
+  animal.cry();
+  animal.cry();
+  animal.sleep();
+}
+```
+
+```{.rust .cb-nb session=c}
+let cat = Cat {};
+cry_to_sleep(cat);
+```
+
+However, this is not dynamic. The types are required to be known at compile
+time. But there is no virtual function lookup required.
+
+
+## Dynamic Interface Polymorphism
+
+We can write a `cry_to_sleep()` variant that offers dynamic interface
+polymorphism like this:
+
+```{.rust .cb-nb session=c}
+fn cry_to_sleep_dynamic(animal: &dyn Animal) {
+  animal.cry();
+  animal.cry();
+  animal.sleep();
+}
+```
+
+The function `cry_to_sleep_dynamic()` does not use generics. It does require a
+virtual function table and lookup, but what's interesting is who decides a look
+up will happen. The struct `Cat` does not determine whether its method calls
+will have dynamic dispatch when its defined as is the case with many other
+object oriented languages. There's no `virtual fn cry(&self)` in rust.
+
+```{.rust .cb-nb session=c}
+let cat = Cat {};
+cry_to_sleep_dynamic(&cat);
+```
+
+
+Instead its the caller who determines whether a trait will use dynamic dispatch
+by using the `dyn` keyword. We'll say more about the mechanism for it later.
+
+# Take Three
+
+If we want subtype polymorphism, we're going to have to implement it ourselves.
+Our trait probably needs to know the base type. We can make our trait `Animal`
+generic with respect to a `Base` type that is some other kind of `Animal` like
+so:
+
+```rust
+trait Animal {
+  type Base : Animal;
+  fn cry(&self);
+  // ...
+}
+```
+
+And we can also define default implementations of trait functions. That
+seems like a good place to put our dynamic dispatcher functionality call,
+doesn't it? But we need to be able to get an instance of the base "class" or
+struct.
+
+```{.rust .cb-nb session=d}
+trait Animal {
+  type Base : Animal;
+  fn base(&self) -> &Self::Base;
+  fn cry(&self) {
+    self.base().cry();
+  }
+  fn sleep(&self) {
+    self.base().sleep();
+  }
+  fn roam(&self) {
+    self.base().roam();
+  }
+}
+```
+
+Now we can implement only part of `Animal` for `Cat`.
+
+```{.rust .cb-nb session=d}
+struct Cat {}
+
+impl Animal for Cat {
+  type Base = Cat;
+  fn base(&self) -> &Cat {
+    &Cat {}
+  }
+  fn cry(&self) {
+    println!("meow");
+  }
+}
+```
+
+If we call `cry()`, it works.
+
+```{.rust .cb-nb session=d}
+let cat = Cat {};
+cat.cry();
+```
+
+But calling the unimplemented `roam()` will induce an infinite loop and cause a
+stack overflow. (It's actually nice that it overflows fast instead of hanging
+forever).
+
+```{.rust .cb-nb session=d}
+let cat = Cat {};
+cat.roam();
+```
+
+The reason that happens is because we infinitely recurse down the base type. We
+call `self.base().base().base()...` when there's no default implementation. We
+can define a base type that implements all the functions to prevent infinite
+recursion.
+
+## Base Animal type
+
+```{.rust .cb-run session=f}
+trait Animal {
+  type Base : Animal;
+  fn base(&self) -> &Self::Base;
+  fn cry(&self) {
+    self.base().cry();
+  }
+  fn sleep(&self) {
+    self.base().sleep();
+  }
+  fn roam(&self) {
+    self.base().roam();
+  }
+}
+```
+
+```{.rust .cb-nb session=f}
+struct BaseAnimal {}
+
+impl Animal for BaseAnimal {
+  type Base = BaseAnimal;
+  fn base(&self) -> &BaseAnimal {
+    panic!("Never call me here.");
+  }
+  fn cry(&self) { 
+    println!("base cry");
+  }
+  fn sleep(&self) { 
+    println!("base sleep");
+  }
+  fn roam(&self) { 
+    println!("base roam");
+  }
+}
+```
+
+```{.rust .cb-nb session=f}
+struct Cat {}
+
+impl Animal for Cat {
+  type Base = BaseAnimal;
+  fn base(&self) -> &BaseAnimal {
+    &BaseAnimal {}
+  }
+  fn cry(&self) {
+    println!("meow");
+  }
+}
+```
+
+Now we can call `roam()` and we won't get an infinite loop at least.
+
+```{.rust .cb-nb session=f}
+let cat = Cat {};
+cat.roam();
+```
+
+# Take Six
+
+Instead of requiring a base struct for every object oriented trait, we could
+change our `base()` signature to use an `Option<>`.
+
+```rust
+trait Animal {
+  type Base : Animal;
+  fn base(&self) -> Option<&Self::Base> {
+    None
+  }
+  fn cry(&self) {
+    if let Some(b) = self.base() {
+      b.cry();
+    } else {
+      todo!("Not yet implemented");
+    }
+  }
+  // ...
+}
+```
+
+# Ok, but how do crustaceans actually do this?
+
+Let's go back to our second version of this trait.
+
+```{.rust .cb-nb session=g}
+trait Animal {
+  fn cry(&self);
+  fn sleep(&self);
+  fn roam(&self);
+}
+```
+
+```{.rust .cb-nb session=g}
+struct Cat {} 
+
+impl Animal for Cat {
+  fn cry(&self) {
+    println!("meow");
+  }
+  fn sleep(&self) {
+    println!("Zzzz");
+  }
+  fn roam(&self) {
+    println!("patter patter pounce");
+  }
+}
+
+struct Bird {} 
+
+impl Animal for Bird {
+  fn cry(&self) {
+    println!("chirp");
+  }
+  fn sleep(&self) {
+    println!("Zzzz");
+  }
+  fn roam(&self) {
+    println!("flit flit flurp");
+  }
+}
+```
+
+We've got two struct and we can use generics to call whichever implementation is present.
+
+```{.rust .cb-nb session=g}
+fn cry_to_sleep<T: Animal>(animal: T) {
+  animal.cry();
+  animal.cry();
+  animal.sleep();
+}
+```
+
+```{.rust .cb-nb session=g}
+let cat = Cat {};
+cry_to_sleep(cat);
+```
+
+## But what if I don't know the type exactly?
+
+Suppose you have a heterogenous list of `Animal`s and you don't know their exact
+type any more. How do you deal with that? You can't use the generic solution.
+
+Ok, here's the really cool thing that rust does.
+
+```{.rust .cb-nb session=g}
+fn cry_to_sleep_dynamic(animal: &dyn Animal) {
+  animal.cry();
+  animal.cry();
+  animal.sleep();
+}
+```
+
+Rather than having a structural cost baked into every object that is capable of
+polymorphism with a virtual function look up, rust has virtual function look up
+on demand via its `dyn` keyword. When you use `dyn` you're passing and receiving
+a "fat" pointer, which is two pointers: one to the regular struct, and another
+to a virtual function look up table.
+
+So you can call this method on bird
+
+```{.rust .cb-nb session=g}
+let bird = Bird {};
+cry_to_sleep_dynamic(&bird);
+```
+
+or on cat.
+
+```{.rust .cb-nb session=g}
+let cat = Cat {};
+cry_to_sleep_dynamic(&cat);
+```
+
+
+
+So you can have polymorphism in rust whenever you like, but the funny thing is
+if you have a choice between direct static dispatch or an indirect dynamic
+dispatch, one prefers static dispatch. It's known at compile time. It's faster. 

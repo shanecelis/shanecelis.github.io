@@ -1,5 +1,7 @@
 # The URL the site will be built for
 base_url = "https://shanecelis.com"
+title = "Shane Celis"
+description = "Approximating success one failure at a time"
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
@@ -11,6 +13,12 @@ build_search_index = true
 taxonomies = [
     { name = "tags", feed = true }
 ]
+[link_checker]
+# Treat internal link problems as either "error" or "warn", default is "error"
+internal_level = "error"
+
+# Treat external link problems as either "error" or "warn", default is "error"
+external_level = "warn"
 
 [markdown]
 # Whether to do syntax highlighting
