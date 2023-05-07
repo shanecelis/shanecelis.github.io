@@ -27,7 +27,7 @@ this wasn't a large project, but it did grow rapidly.  Below is a
 graph of the total commits as shown in github.  (The repository I'm
 showing is not public unfortunately.)  
 
-<img src="{{site.url}}/assets/images/commits-graph.png"/>
+<img src="commits-graph.png"/>
 
 My expectation was that having two people developing one code base
 from the beginning with equivalent experience should be a recipe for
@@ -76,9 +76,9 @@ maybe there are some comments to lead you astray.  In a literate
 program, one begins by writing a document for someone to read.  Within
 the document, one specifies sections of code in whatever order he or
 she feel is best for the reader.  Here is an [example literate
-program]({{site.url}}/assets/images/hello-emacsy-paper.pdf) and its
+program](hello-emacsy-paper.pdf) and its
 [literate source
-code]({{site.url}}/assets/images/hello-emacsy.nw.txt); it uses
+code](hello-emacsy.nw.txt); it uses
 the literate programming tool [noweb](http://www.cs.tufts.edu/~nr/noweb/).
 I wrote those for the Emacsy project which I proposed as [a Google Summer of
 Code
@@ -115,7 +115,7 @@ it's not in a separate document that will be forgotten, unloved, and
 superseded because it's the ground truth: _it's the source of the
 source_.
 
-![A picture is worth a thousand ASCII pictures.]({{site.url}}/assets/images/vision-page-2.png "A picture is worth a thousand ASCII pictures.")
+![A picture is worth a thousand ASCII pictures.](vision-page-2.png "A picture is worth a thousand ASCII pictures.")
 
 **You can read it like a book.** Another thing I didn't appreciate
 initially is that a literate program provides an unambiguous place to
@@ -134,7 +134,7 @@ find the spots I need to edit. A literate program is a [topological
 ordering](http://en.wikipedia.org/wiki/Topological_sorting) of that
 file tree, ordered to make it easier to understand.
 
-![topological order]({{site.url}}/assets/images/topo-order.png)
+![topological order](topo-order.png)
 
 **The comfort of plaintext, the richness of PDF.** It is kind of
 amazing how low-tech coding is.  If it's not plaintext, then it will

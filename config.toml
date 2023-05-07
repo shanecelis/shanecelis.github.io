@@ -20,21 +20,21 @@ highlight_code = true
 [extra]
 home_subtitle = "Approximating success one failure at a time"
 
-footer_copyright = ' &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
+# footer_copyright = ' &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a>'
 
 hermit_menu = [
     { link = "/posts", name = "Posts" },
+    { link = "/papers", name = "Papers" },
     { link = "/about", name = "About" }
 ]
 
 hermit_social = [
     { name = "mastodon", link = "https://mastodon.gamedev.place/@shanecelis" },
-    { name = "twitter", link = "https://twitter.com/shanecelis" },
     { name = "github", link = "https://github.com/shanecelis" },
+    { name = "twitter", link = "https://twitter.com/shanecelis" },
     { name = "email", link = "mailto:shane.celis@gmail.com" }
 ]
 toc=true
-
 
 [extra.highlightjs]
 enable = true

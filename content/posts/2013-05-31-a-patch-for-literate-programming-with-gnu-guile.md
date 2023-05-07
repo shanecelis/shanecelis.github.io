@@ -51,11 +51,11 @@ term, so let me try to disambiguate it.
 
 ```lisp
 (define hash #{a => 1, b => 2})
-{% endhighlight %}
+```
 
   The above might be translated into something that looks like this:
 
-{% highlight scheme %}
+```lisp
 (define hash (let ((h (make-hash-table)))
                (hashq-set! h 'a 1)
                (hashq-set! h 'b 2)
