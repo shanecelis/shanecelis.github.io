@@ -1,11 +1,7 @@
----
-layout: post
-title: "Google Summer of Code 2013: Emacsy"
-description: ""
-category: Emacsy
-tags: [gsoc, emacsy, emacs, guile, vim]
----
-{% include JB/setup %}
++++
+title = "Google Summer of Code 2013: Emacsy"
+tags = ["gsoc", "emacs", "guile", "vim"]
++++
 
 Emacsy was accepted as a [2013 Google Summer of Code
 Project](http://www.google-melange.com/gsoc/homepage/google/gsoc2013),

@@ -5,18 +5,17 @@ description: ""
 category: 
 tags: []
 ---
-{% include JB/setup %}
-I wrote previously about <a href="/2013/05/20/why-im-trying-literate-programming">why I'm trying literate programming</a>. This
+I wrote previously about <a href="/posts/why-im-trying-literate-programming">why I'm trying literate programming</a>. This
 post is a more about how I'm doing it. One of the requirements for
 doing literate programming is support for the #line compiler
 directive. Typically one sees these in generated source files.
 
-{% highlight c %}
+```c
 int main(int argc, char *argv[]) {
     #line 360 "hello-world.nw"
     printf("Hello, World!\n");
 }
-{% endhighlight %}
+```
 
 This tells the compiler to report errors relative to that line in
 `hello-world.nw` instead of `hello-world.c`. This is indispensable
@@ -50,7 +49,7 @@ term, so let me try to disambiguate it.
   a hashmap literal in Guile.  You can write a reader macro that makes
   hashes look like your favorite language.
 
-{% highlight scheme %}
+```lisp
 (define hash #{a => 1, b => 2})
 {% endhighlight %}
 
@@ -61,7 +60,7 @@ term, so let me try to disambiguate it.
                (hashq-set! h 'a 1)
                (hashq-set! h 'b 2)
               h))
-{% endhighlight %}
+```
 
   Armed with reader macros, we can extend the syntax of our language.
   One constraint with reader macros is that it must start with a #
@@ -76,7 +75,7 @@ Given that we can extend the syntax of our language by using a reader
 macro, it seems like we should be able to write a #line pragma quite
 easily.  Here was my first attempt.  
 
-{% highlight scheme %}
+```lisp
 (read-hash-extend 
  #\l 
  (lambda (char port)
@@ -93,34 +92,34 @@ easily.  Here was my first attempt.
      (set-port-line! port lineno)
      (set-port-column! port 0)
      "")))
-{% endhighlight %}
+```
 
 So the following code 
 
-{% highlight scheme %}
+```lisp
 (define (f x)
 #line 314 "increment-literately.nw"
   (+ x 1))
-{% endhighlight %}
+```
 
 will turn into
 
-{% highlight scheme %}
+```lisp
 (define (f x)
 ""
   (+ x 1))
-{% endhighlight %}
+```
      
 In this case, that zero-length string won't cause much of problem, and
 it will work for top-level definitions because the strings will just
 be ignored, but consider this following bit of code.
 
-{% highlight scheme %}
+```lisp
 (+ 1
 #line 628 "incrementally-literate.nw"
   2
   3)
-{% endhighlight %}
+```
 
 This bit of code will become `(+ 1 "" 2 3)`, which will throw an
 exception and does not preserve the original meaning of the code.

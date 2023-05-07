@@ -1,11 +1,8 @@
----
-layout: post
-title: "Why I'm Trying Literate Programming"
-description: ""
-category: 
-tags: [literate programming, emacs]
----
-{% include JB/setup %}
++++
+title = "Why I'm Trying Literate Programming"
+taxonomies.tags = ["literate programming", "emacs"]
+date = "2013-05-20"
++++
 
 I decided to experiment with literate programming recently because I
 felt like something must be wrong with this story: A colleague and I

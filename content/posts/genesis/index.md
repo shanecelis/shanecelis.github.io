@@ -1,13 +1,11 @@
----
-layout: post
-title: "The Fall of Man was Positively Humane: A Naturalist's Interpretation of The Fall"
-description: ""
-category: 
-tags: [comic, bible, blasphemy]
----
-{% include JB/setup %}
++++
+title = "The Fall of Man was Positively Humane: A Naturalist's Interpretation of The Fall"
+date = "2013-06-18"
+[taxonomies]
+tags = ["comic", "bible", "blasphemy"]
++++
 
-I made [a geeky comic](/2013/06/15/the-garden/) that trades off the
+I made [a geeky comic](/posts/the-garden/) that trades off the
 story of The Garden of Eden and the Fall of Man.  I do not endeavor to
 explain that comic here, but it is apparent that the interpretation of
 the Fall of Man is colored in such a negative light that I feel I must
@@ -42,7 +40,7 @@ and language have grown beyond what Thomas Jefferson and the Second
 Continental Congress had intended.  It is in this sense of working
 with a living document that this essay will treat The Fall.
 
-<img class="right" src="/assets/images/genesis/serpent-small.jpg">
+<img class="right" src="serpent-small.jpg">
 
 The event that this essay focuses on is foreshadowed by this passage.
 
@@ -77,7 +75,7 @@ prerequisite for general knowledge.
 
 ## Death
 
-<img class="right" src="/assets/images/genesis/death-small.jpg">
+<img class="right" src="death-small.jpg">
 
 God punishes both man and woman for their disobedience with death.
 
@@ -101,7 +99,7 @@ incidental punishment.
 
 ## Paradise Lost
 
-<img class="right" src="/assets/images/genesis/expulsion-small.jpg">
+<img class="right" src="expulsion-small.jpg">
 
 The breaking of God's commandment is seen as Man's Fall from Grace.
 Traditionally, it has a very negative connotation: Man brought sin
@@ -161,7 +159,7 @@ If one understood genes completely such that he or she could reshape
 them, could death be eradicated?  Possibly.  Researchers like Aubrey
 de Grey insist this is a viable idea (Hooper 1).  
 
-<img class="right" src="/assets/images/genesis/flaming-sword-small.jpg">
+<img class="right" src="flaming-sword-small.jpg">
 
 >"So he \[God\] drove out the man; and he placed at the east of the
 >garden of Eden Cherubims, and a flaming sword which turned every way,
