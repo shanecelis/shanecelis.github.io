@@ -9,6 +9,10 @@ endef
 all:
 	$(call FOREACH,all)
 
+.PHONY: watch
+watch:
+	$(call FOREACH,watch)
+
 .PHONY: build
 build: all
 	zola build
@@ -16,6 +20,10 @@ build: all
 .PHONY: deploy
 deploy: build
 	cd public && gh-pages
+
+.PHONY: serve
+serve: all
+	zola serve
 
 .PHONY: clean
 clean:
