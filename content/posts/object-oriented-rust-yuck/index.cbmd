@@ -1,14 +1,14 @@
 +++
-title = "Object Oriented Programming in Rust—Yuck"
+title = "Object Oriented Programming in Rust—Yuck and Yet..."
 date = "2023-05-07"
 +++
 
 # Introduction
 
-I remember a coworker telling me you can write object oriented code in any
-language even C. We were writing Java at the time, and I was confused because
-obviously the C language does not natively support object oriented programming
-but [he was
+I remember a coworker, gosh, maybe two decades ago, telling me you can write
+object oriented code in any language even C. We were writing Java at the time
+(see, a long time ago), and I was confused because obviously the C language does
+not natively support object oriented programming but [he was
 right](https://staff.washington.edu/gmobus/Academics/TCES202/Moodle/OO-ProgrammingInC.html).
 Many people have written object oriented code in C. For instance
 [GTK](https://www.gtk.org) uses the [GObject
@@ -20,30 +20,50 @@ that's what we're determined to do.
 
 # Object Oriented Programming
 
-What is object oriented programming? We'll ignore the fact that it's so
-conventional that you may be well acquainted with it. You can define classes
-that may implement interfaces. You can extend classes that modify their
-behavior. A caller---that can interact with a class---can interact with any of
-its subclasses. A caller---that can interact with an interface---can interact
-with any of its implementers.
+![Object oriented mind graph showing it connect polymorphism, abstraction,
+ encapsulation, inheritance, classes, and objects](oo.png)
+
+What is object oriented programming? Gosh, it's been with us so long it's hard
+to think of what it actually means.
+
+* A class defines some data and provides public methods.
+
+* An object is an instance of a class, of which there can be many.
+
+* Encapsulation: The data a class defines may be private and its public methods
+constitute its programmatic interface.
+
+* Inheritance: One can extend a class adding new data and modifying its methods.
+
+* Abstraction: A caller---that can interact with a class---can also interact
+with any of its subclasses. Likewise a caller---that can interact with an
+interface---can interact with any of its implementers.
 
 ## Polymorphism
 
-What is polymorphism? Polymorphism is the ability of subclasses to redefine
-their parent class's methods. And a caller does not need to know the class
-exists yet it can still interact with the subclass properly. 
+What is polymorphism? Polymorphism is the ability to access objects of different
+types through the same programmatic interface. There is subclass polymorphism: a
+child class can be substituted anywhere that accepts its parent. There is interface
+polymorphism: a class that implements an interface can be substituted anywhere
+that accepts that interface.
 
-Polymorphism is traditionally implemented with a virtual method table that each
-subclass maintains. This does introduce a small overhead since the method is not
-known at compile time and there's an lookup for a virtual method call. This is
-also sometimes called dynamic dispatch.
+Furthermore there are two variants of polymorphism: static and dynamic. With
+dynamic polymorphism a caller does not need to know the class yet it can still
+interact with its interface properly. Dynamic polymorphism is traditionally
+implemented with a virtual method table that each class and subclass maintains.
+This introduces a small overhead since the method is not known at compile time:
+there's an lookup for a virtual method call. This is also called dynamic
+dispatch.
+
+Then there is static polymorphism, where code can be written to work some
+interface but the compiler knows what class is given and omits the dynamic
+dispatch and calls the class's method directly.
 
 # A Model Animal
 
 Rust doesn't have interfaces, but it does have traits. But let's try to use a
 trait as though it were an interface. We'll try and create the canonical object
-oriented animal
-example.
+oriented animal example.
 
 ```{.rust .cb-nb session=a}
 trait Animal {
@@ -52,6 +72,8 @@ trait Animal {
   fn roam();
 }
 ```
+
+It crys, sleeps, and roams. What more could you ask for?
 
 ## A Cat
 
@@ -78,19 +100,22 @@ impl Animal for Cat {
 
 ### Run it
 
+[{{ resize_image(path="crying-cat-meme.png", height=250, op="fit_height", alt="Crying cat meme in pixel art form by PixelPandaArts") }}](https://www.deviantart.com/pixelpandaarts/art/Crying-Cat-Meme-900571649)
+
 We can exercise it like so.
 
 ```{.rust .cb-nb session=a}
 Cat::cry();
 ```
 
-However, this `cry()` is basically a static method in the parlance of Java or
-C#. Static methods aren't generally capable of using polymorphism. 
+However, this `cry()` is akin to a static method by Java or
+C# terminology. There is no instance or object it is called on. Static methods
+aren't really capable of any dynamic polymorphism.
 
 ### Static Polymorphism 
 
-However, rust can do something that looks like static polymorphism. Say we had
-another "class" called `Bird`.
+However, rust can do static polymorphism. Say we had another "class" called
+`Bird`.
 
 ```{.rust .cb-nb session=a}
 struct Bird {}
@@ -143,7 +168,69 @@ methods](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/sta
 and you can use them to do all kinds of cool things like make generics work
 seamlessly with math operators in C#.
 
-This "static polymorphism" though is limited in the sense that the type must be
+### Digression: Factories. Factories everywhere.
+
+Remember how everyone needed a factory class in addition to their class? Why did
+they need a factory? Well, because `new` is not dynamically dispatched. `new` only
+operates on a concrete class. One could have added a static method to their
+class like this:
+
+```c#
+class Gorilla {
+  public static Gorilla New() { ... }
+}
+```
+
+But one could not substitute a Gorilla class with some other Gorilla class.
+There's only one Gorilla class.
+
+#### A New Way
+
+With static polymorphism you could instead write this:
+
+```{.rust .cb-nb session=h}
+trait Factory<T> {
+  fn new() -> T;
+}
+
+struct Gorilla {
+  is_mock: bool
+}
+
+impl Factory<Gorilla> for Gorilla {
+  fn new() -> Gorilla {
+    println!("Made a gorilla");
+    Gorilla { is_mock: false }
+  }
+}
+
+fn gorilla_keeper<F: Factory<Gorilla>>() {
+  let gorilla = F::new();
+  let gorilla = F::new();
+}
+
+gorilla_keeper::<Gorilla>();
+```
+
+Then if you needed to pass an object that was configured differently or perhaps
+a mock object, you could do that.
+
+
+```{.rust .cb-nb session=h}
+struct MockGorilla {}
+
+impl Factory<Gorilla> for MockGorilla {
+  fn new() -> Gorilla {
+    println!("Made a mock gorilla");
+    Gorilla { is_mock: true }
+  }
+}
+
+gorilla_keeper::<MockGorilla>();
+```
+
+
+This static polymorphism though is limited in the sense that the type must be
 known at compile time. Each type requires the compiler to generate a new
 function, which can cause [code
 bloat](https://dirtyhandscoding.github.io/posts/on-cpp-code-bloat.html). It's
@@ -152,8 +239,8 @@ even present at compile time.
 
 # Take Two
 
-What we'd like instead is to call these functions on an instance of the object.
-To do that in rust, we add the `&self` parameters.
+What we'd like instead is to call these functions on an instance of an object.
+To do that in rust, we add the `&self` parameter.
 
 ```{.rust .cb-nb session=c}
 trait Animal {
@@ -186,7 +273,7 @@ cat.cry();
 
 All right. It does what we expect. It does not offer any subclass polymorphism.
 There's no means to inherit `Cat`'s behavior. But we can achieve another kind of
-polymorphsimBut we can achieve another kind of polymorphism.
+polymorphsim.
 
 ## Static Interface Polymorphism
 
@@ -226,14 +313,13 @@ fn cry_to_sleep_dynamic(animal: &dyn Animal) {
 The function `cry_to_sleep_dynamic()` does not use generics. It does require a
 virtual function table and lookup, but what's interesting is who decides a look
 up will happen. The struct `Cat` does not determine whether its method calls
-will have dynamic dispatch when its defined as is the case with many other
+will use dynamic dispatch when its defined as is the case with many other
 object oriented languages. There's no `virtual fn cry(&self)` in rust.
 
 ```{.rust .cb-nb session=c}
 let cat = Cat {};
 cry_to_sleep_dynamic(&cat);
 ```
-
 
 Instead its the caller who determines whether a trait will use dynamic dispatch
 by using the `dyn` keyword. We'll say more about the mechanism for it later.
@@ -370,7 +456,7 @@ let cat = Cat {};
 cat.roam();
 ```
 
-# Take Six
+# Take Four
 
 Instead of requiring a base struct for every object oriented trait, we could
 change our `base()` signature to use an `Option<>`.
@@ -391,6 +477,44 @@ trait Animal {
   // ...
 }
 ```
+
+One further issue is what happens when a trait is extended? This happens all the
+time with object oriented code. A subclass adds fields and new public methods.
+Adding fields is easy in this setup:
+
+```rust
+Bat {
+  speed: f32
+}
+```
+
+Adding public "methods" that also do subtype polymorphism is less clear.
+
+```{.rust .cb-nb session=f hide=all}
+trait EndangeredAnimal : Animal {
+  type Base : EndangeredAnimal;
+  fn base(&self) -> Option<&<Self as EndangeredAnimal>::Base> {
+    None
+  }
+  fn is_endangered(&self) -> bool {
+    if let Some(b) = self.base() {
+      b.is_endangered();
+    } else {
+      todo!("Not yet implemented");
+    }
+
+  }
+}
+```
+
+```rust
+trait EndangeredAnimal : Animal {
+  fn is_endangered(&self) -> bool;
+}
+```
+
+I'm going to leave this as an exercise for the reader partly because I think
+it's going to be a mess, but it is doable.
 
 # Ok, but how do crustaceans actually do this?
 
@@ -491,4 +615,9 @@ dispatch, one often prefers static dispatch.
 ![RUST NEWBIE: So when would I choose dynamic dispatch? CRUSTACEAN: That's the
  neat part. You don't.](rust-oo-the-neat-part.jpg)
 
-Static dispatch is known at compile time. It's faster.
+Static dispatch is known at compile time. It's faster. It's simpler to reason
+about. Use it if you can. I have found though that when dynamic dispatch is
+available on a per call instead of a per object basis, it's amazing how little I
+actually need it. But dynamic dispatch is there for whatever trait you need it
+on, and you don't have to rely on the original author knowing which methods
+needed to be marked "virtual".
