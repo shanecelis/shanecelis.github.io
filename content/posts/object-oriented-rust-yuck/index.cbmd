@@ -490,23 +490,6 @@ Bat {
 
 Adding public "methods" that also do subtype polymorphism is less clear.
 
-```{.rust .cb-nb session=f hide=all}
-trait EndangeredAnimal : Animal {
-  type Base : EndangeredAnimal;
-  fn base(&self) -> Option<&<Self as EndangeredAnimal>::Base> {
-    None
-  }
-  fn is_endangered(&self) -> bool {
-    if let Some(b) = self.base() {
-      b.is_endangered();
-    } else {
-      todo!("Not yet implemented");
-    }
-
-  }
-}
-```
-
 ```rust
 trait EndangeredAnimal : Animal {
   fn is_endangered(&self) -> bool;

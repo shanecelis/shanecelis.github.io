@@ -13,6 +13,7 @@ build_search_index = true
 taxonomies = [
     { name = "tags", feed = true }
 ]
+ignored_content = [ "**/_codebraid/*", "*.cbmd", "/static/processed_images/*" ]
 [link_checker]
 # Treat internal link problems as either "error" or "warn", default is "error"
 internal_level = "error"

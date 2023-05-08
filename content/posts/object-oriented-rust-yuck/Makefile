@@ -14,3 +14,6 @@ all: index.md
 
 open: README.html
 	open README.html
+
+watch:
+	fswatch -o index.cbmd | xargs -n1 -I{} $(MAKE) all
