@@ -25,6 +25,8 @@ external_level = "warn"
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
 highlight_code = true
 
+smart_punctuation = true
+
 [extra]
 home_subtitle = "Approximating success one failure at a time"
 
@@ -32,6 +34,7 @@ home_subtitle = "Approximating success one failure at a time"
 
 hermit_menu = [
     { link = "/posts", name = "Posts" },
+    { link = "/projects", name = "Projects" },
     { link = "/papers", name = "Papers" },
     { link = "/about", name = "About" }
 ]
