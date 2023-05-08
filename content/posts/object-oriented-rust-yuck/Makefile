@@ -3,7 +3,7 @@ all: index.md
 %.md: %.cbmd Makefile
 	(awk -f until.awk '\+\+\+' 2 $<; \
 	CODEBRAID_ANSI=false codebraid pandoc --ascii --from markdown --to markdown $< \
-	| awk -f after.awk '\+\+\+' 2 | sed -r 's/^``` {\.([a-z]+).*}/```\1/') > $@
+	| awk -f after.awk '\+\+\+' 2 | sed -r 's/^``` {\.([a-z]+).*}/```\1/; s/``` ?std(out|err)/```txt/;') > $@
 
 %.rawmd: %.cbmd Makefile
 	CODEBRAID_ANSI=false codebraid pandoc --ascii --from markdown --to markdown $< > $@

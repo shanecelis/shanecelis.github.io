@@ -1,5 +1,5 @@
 +++
-title = "Object Oriented Programming in Rust---Yuck"
+title = "Object Oriented Programming in Rust—Yuck"
 date = "2023-05-07"
 +++
 
@@ -14,9 +14,9 @@ Many people have written object oriented code in C. For instance
 [GTK](https://www.gtk.org) uses the [GObject
 library](https://en.wikipedia.org/wiki/GObject). So object oriented programming
 can be done in C but the language does not explicitly facilitate it. Rust is
-another language that does not natively support object oriented programming, but
-they can't stop us from doing object oriented programming if that's what we're
-determined to do.
+another language that does not natively support conventional object oriented
+programming, but they can't stop us from doing object oriented programming if
+that's what we're determined to do.
 
 # Object Oriented Programming
 
@@ -484,8 +484,11 @@ let cat = Cat {};
 cry_to_sleep_dynamic(&cat);
 ```
 
-
-
 So you can have polymorphism in rust whenever you like, but the funny thing is
 if you have a choice between direct static dispatch or an indirect dynamic
-dispatch, one prefers static dispatch. It's known at compile time. It's faster. 
+dispatch, one often prefers static dispatch.
+
+![RUST NEWBIE: So when would I choose dynamic dispatch? CRUSTACEAN: That's the
+ neat part. You don't.](rust-oo-the-neat-part.jpg)
+
+Static dispatch is known at compile time. It's faster.
