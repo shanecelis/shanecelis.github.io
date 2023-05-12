@@ -6,17 +6,18 @@ date = "2023-05-07"
 # Introduction
 
 I remember a coworker, gosh, maybe two decades ago, telling me you can write
-object oriented code in any language even C. We were writing Java at the time
+object oriented code in any language---even C. We were writing Java at the time
 (see, a long time ago), and I was confused because obviously the C language does
 not natively support object oriented programming but [he was
 right](https://staff.washington.edu/gmobus/Academics/TCES202/Moodle/OO-ProgrammingInC.html).
 Many people have written object oriented code in C. For instance
 [GTK](https://www.gtk.org) uses the [GObject
-library](https://en.wikipedia.org/wiki/GObject). So object oriented programming
-can be done in C but the language does not explicitly facilitate it. Rust is
-another language that does not natively support conventional object oriented
-programming, but they can't stop us from doing object oriented programming if
-that's what we're determined to do.
+library](https://en.wikipedia.org/wiki/GObject).
+[Nethack](https://www.nethack.org) is another example. So object oriented
+programming can be done in C but the language does not explicitly facilitate it.
+Rust is another language that does not natively support conventional object
+oriented programming, but they can't stop us from doing object oriented
+programming if that's what we're determined to do.
 
 # Object Oriented Programming
 
@@ -24,20 +25,63 @@ that's what we're determined to do.
  encapsulation, inheritance, classes, and objects](oo.png)
 
 What is object oriented programming? Gosh, it's been with us so long it's hard
-to think of what it actually means.
+to think of what it actually means. 
 
-* A class defines some data and provides public methods.
+* A class defines some data and provides methods.
+
+```{.rust .cb-nb session=i}
+struct Mouse { // a "class"
+  age: u8
+}
+
+impl Mouse {
+  fn is_old(&self) -> bool { // a "method"
+    self.age >= 2
+  }
+}
+```
 
 * An object is an instance of a class, of which there can be many.
+
+```{.rust .cb-nb session=i}
+let mouse = Mouse { age: 1 }; // an "object"
+```
 
 * Encapsulation: The data a class defines may be private and its public methods
 constitute its programmatic interface.
 
-* Inheritance: One can extend a class adding new data and modifying its methods.
+```{.rust .cb-nb session=i}
+pub struct Rat {
+  age: u8 // Not public, so Rat can't be constructed or accessed externally.
+}
+
+impl Rat {
+  pub fn new(years_old: u8) -> Rat { // a "static method"
+    return Rat { age: years_old };
+  }
+
+  pub fn is_old(&self) -> bool {
+    self.age >= 3
+  }
+}
+
+let rat = Rat::new(3);
+```
 
 * Abstraction: A caller---that can interact with a class---can also interact
 with any of its subclasses. Likewise a caller---that can interact with an
 interface---can interact with any of its implementers.
+
+```{.rust .cb-nb session=i}
+pub trait Old { // a "interface"
+  fn is_old(&self) -> bool;
+}
+```
+
+* Inheritance: One can extend a class adding new data and modifying its methods.
+
+We'll come back to this one. The short answer is that rust does not have
+implementation inheritance. It does have trait inheritance.
 
 ## Polymorphism
 
@@ -61,7 +105,7 @@ dispatch and calls the class's method directly.
 
 # A Model Animal
 
-Rust doesn't have interfaces, but it does have traits. But let's try to use a
+Rust doesn't have interfaces; it has traits. But let's try to use a
 trait as though it were an interface. We'll try and create the canonical object
 oriented animal example.
 
@@ -162,49 +206,53 @@ cry_to_sleep::<Cat>();
 cry_to_sleep::<Bird>();
 ```
 
-I actually think this is pretty cool. It was only recently that [C# got
-interface static
+I think this is pretty cool. It was only recently that [C# got interface static
 methods](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members),
 and you can use them to do all kinds of cool things like make generics work
-seamlessly with math operators in C#.
+seamlessly with math operators in C#. And you can use it to good effect.
 
-### Digression: Factories. Factories everywhere.
+### Factories. Factories everywhere.
 
 Remember how everyone needed a factory class in addition to their class? Why did
-they need a factory? Well, because `new` is not dynamically dispatched. `new` only
-operates on a concrete class. One could have added a static method to their
-class like this:
+they need a factory? Because `new` is not dynamically dispatched; `new` only
+operates on a concrete class. You can't `new` an interface. So to workaround
+that we added an indirection, a whole other class we call a factory, which is
+really just a glorified constructor, a dynamically dispatched constructor.
+
+You'd think one could have added a static method to their class like this:
 
 ```c#
 class Gorilla {
   public static Gorilla New() { ... }
 }
+
+var gorilla = Gorilla.New();
 ```
 
-But one could not substitute a Gorilla class with some other Gorilla class.
-There's only one Gorilla class.
+But one could not substitute a Gorilla class with some other Gorilla class. You
+can substitute an instance of the Gorilla class with any of its descendant
+instances but not the class itself. There's only one Gorilla class.
 
 #### A New Way
 
 With static polymorphism you could instead write this:
 
 ```{.rust .cb-nb session=h}
-trait Factory<T> {
-  fn new() -> T;
+trait Factory {
+  fn new() -> Self; // "new" is not a keyword in rust.
 }
 
 struct Gorilla {
-  is_mock: bool
 }
 
-impl Factory<Gorilla> for Gorilla {
-  fn new() -> Gorilla {
+impl Factory for Gorilla {
+  fn new() -> Self { // "Self" is a alias for implementing type.
     println!("Made a gorilla");
-    Gorilla { is_mock: false }
+    return Gorilla { }; // This is a "struct constructor."
   }
 }
 
-fn gorilla_keeper<F: Factory<Gorilla>>() {
+fn gorilla_keeper<F: Factory>() {
   let gorilla = F::new();
   let gorilla = F::new();
 }
@@ -219,10 +267,11 @@ a mock object, you could do that.
 ```{.rust .cb-nb session=h}
 struct MockGorilla {}
 
-impl Factory<Gorilla> for MockGorilla {
-  fn new() -> Gorilla {
+impl Factory for MockGorilla {
+  fn new() -> MockGorilla {
     println!("Made a mock gorilla");
-    Gorilla { is_mock: true }
+    MockGorilla { } // Can omit 'return' and ';' to return last 
+                    // expression.
   }
 }
 
@@ -324,7 +373,11 @@ cry_to_sleep_dynamic(&cat);
 Instead its the caller who determines whether a trait will use dynamic dispatch
 by using the `dyn` keyword. We'll say more about the mechanism for it later.
 
-# Take Three
+# No Subtype Polymorphism Unless...
+
+![Object oriented mind graph showing it connects polymorphism, abstraction,
+ encapsulation, classes, and objects with inheritance crossed out, which rust
+ doesn't support.](oo-crossed-out.png)
 
 If we want subtype polymorphism, we're going to have to implement it ourselves.
 Our trait probably needs to know the base type. We can make our trait `Animal`

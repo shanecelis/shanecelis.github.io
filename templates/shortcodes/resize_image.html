@@ -1,0 +1,2 @@
+{% set image = resize_image(path=page.colocated_path ~ path, height=height, op=op) %}
+<img alt="{{ alt }}" src="{{ image.url | safe }}" />
