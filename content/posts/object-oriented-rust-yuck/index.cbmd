@@ -3,21 +3,23 @@ title = "Object Oriented Programming in Rust—Yuck and Yet..."
 date = "2023-05-07"
 +++
 
+
 # Introduction
 
 I remember a coworker, gosh, maybe two decades ago, telling me you can write
-object oriented code in any language---even C. We were writing Java at the time
-(see, a long time ago), and I was confused because obviously the C language does
-not natively support object oriented programming but [he was
+object oriented code in any language---even C. We were happily writing Java at
+the time (see, a long time ago), and I was confused because obviously the C
+language does not natively support object oriented programming but [he was
 right](https://staff.washington.edu/gmobus/Academics/TCES202/Moodle/OO-ProgrammingInC.html).
 Many people have written object oriented code in C. For instance
 [GTK](https://www.gtk.org) uses the [GObject
 library](https://en.wikipedia.org/wiki/GObject).
 [Nethack](https://www.nethack.org) is another example. So object oriented
 programming can be done in C but the language does not explicitly facilitate it.
-Rust is another language that does not natively support conventional object
-oriented programming, but they can't stop us from doing object oriented
-programming if that's what we're determined to do.
+Rust is another language that has questionable support for conventional object
+oriented programming. Suppose we want conventional object oriented support, they
+can't stop us from doing object oriented programming if that's what we're
+determined to do.
 
 # Object Oriented Programming
 
@@ -31,7 +33,7 @@ to think of what it actually means.
 
 ```{.rust .cb-nb session=i}
 struct Mouse { // a "class"
-  age: u8
+  age: u8 // an unsigned 8-bit, a byte, or a "datum"
 }
 
 impl Mouse {
@@ -52,7 +54,8 @@ constitute its programmatic interface.
 
 ```{.rust .cb-nb session=i}
 pub struct Rat {
-  age: u8 // Not public, so Rat can't be constructed or accessed externally.
+  age: u8 // Not public, so Rat can't be constructed and age can't be accessed
+          // externally.
 }
 
 impl Rat {
@@ -60,7 +63,7 @@ impl Rat {
     return Rat { age: years_old };
   }
 
-  pub fn is_old(&self) -> bool {
+  pub fn is_old(&self) -> bool { // an "instance method"
     self.age >= 3
   }
 }
@@ -80,8 +83,9 @@ pub trait Old { // a "interface"
 
 * Inheritance: One can extend a class adding new data and modifying its methods.
 
-We'll come back to this one. The short answer is that rust does not have
-implementation inheritance. It does have trait inheritance.
+We'll come back to this one. The short answer is that rust does not support
+implementation inheritance natively: structs cannot inherit from one another.
+But a trait can inherit from other traits.
 
 ## Polymorphism
 
@@ -93,21 +97,20 @@ that accepts that interface.
 
 Furthermore there are two variants of polymorphism: static and dynamic. With
 dynamic polymorphism a caller does not need to know the class yet it can still
-interact with its interface properly. Dynamic polymorphism is traditionally
-implemented with a virtual method table that each class and subclass maintains.
-This introduces a small overhead since the method is not known at compile time:
-there's an lookup for a virtual method call. This is also called dynamic
-dispatch.
+interact via its interface. Dynamic polymorphism is traditionally implemented
+with a virtual method table that each class and subclass maintains. This
+introduces some overhead in space and time: there's an lookup for a virtual
+method call. This is called dynamic dispatch.
 
 Then there is static polymorphism, where code can be written to work some
 interface but the compiler knows what class is given and omits the dynamic
-dispatch and calls the class's method directly.
+dispatch and calls the class's method directly. This is called static dispatch.
 
 # A Model Animal
 
-Rust doesn't have interfaces; it has traits. But let's try to use a
-trait as though it were an interface. We'll try and create the canonical object
-oriented animal example.
+Rust doesn't have interfaces; it has traits. But let's try to use a trait as
+though it were an interface. We'll try and create the canonical object oriented
+animal example.
 
 ```{.rust .cb-nb session=a}
 trait Animal {
@@ -124,7 +127,7 @@ It crys, sleeps, and roams. What more could you ask for?
 Let's make a `Cat` "class" to implement it. Rust calls it a struct.
 
 ```{.rust .cb-nb session=a}
-struct Cat {}
+struct Cat { }
 ```
 
 ```{.rust .cb-nb session=a}
@@ -144,17 +147,17 @@ impl Animal for Cat {
 
 ### Run it
 
-[{{ resize_image(path="crying-cat-meme.png", height=250, op="fit_height", alt="Crying cat meme in pixel art form by PixelPandaArts") }}](https://www.deviantart.com/pixelpandaarts/art/Crying-Cat-Meme-900571649)
-
 We can exercise it like so.
 
 ```{.rust .cb-nb session=a}
 Cat::cry();
 ```
 
-However, this `cry()` is akin to a static method by Java or
-C# terminology. There is no instance or object it is called on. Static methods
-aren't really capable of any dynamic polymorphism.
+[{{ resize_image(path="crying-cat-meme.png", height=250, op="fit_height", alt="Crying cat meme in pixel art form by PixelPandaArts") }}](https://www.deviantart.com/pixelpandaarts/art/Crying-Cat-Meme-900571649)
+
+However, this `cry()` is akin to a static method in Java or C# terminology.
+There is no instance or object it is called on. Static methods aren't capable of
+any dynamic polymorphism.
 
 ### Static Polymorphism 
 
@@ -242,19 +245,18 @@ trait Factory {
   fn new() -> Self; // "new" is not a keyword in rust.
 }
 
-struct Gorilla {
-}
+struct Gorilla { }
 
 impl Factory for Gorilla {
-  fn new() -> Self { // "Self" is a alias for implementing type.
+  fn new() -> Self { // "Self" is a alias for the implementing type.
     println!("Made a gorilla");
     return Gorilla { }; // This is a "struct constructor."
   }
 }
 
 fn gorilla_keeper<F: Factory>() {
-  let gorilla = F::new();
-  let gorilla = F::new();
+  let gorilla1 = F::new();
+  let gorilla2 = F::new();
 }
 
 gorilla_keeper::<Gorilla>();
@@ -278,13 +280,11 @@ impl Factory for MockGorilla {
 gorilla_keeper::<MockGorilla>();
 ```
 
-
-This static polymorphism though is limited in the sense that the type must be
-known at compile time. Each type requires the compiler to generate a new
-function, which can cause [code
-bloat](https://dirtyhandscoding.github.io/posts/on-cpp-code-bloat.html). It's
-also not as flexible as dynamic polymorphism which can call types that were not
-even present at compile time.
+This static polymorphism is limited however: the type must be known at compile
+time so the compiler can emit code for a concrete function that uses that type.
+So we are trading space for time when we use generics in this way. Our binary
+size is larger but our performance is better. But we can't use this on types
+that weren't present at compile-time.
 
 # Take Two
 
@@ -298,7 +298,7 @@ trait Animal {
   fn roam(&self);
 }
 
-struct Cat {}
+struct Cat { }
 
 impl Animal for Cat {
   fn cry(&self) {
@@ -320,14 +320,14 @@ let cat = Cat {};
 cat.cry();
 ```
 
-All right. It does what we expect. It does not offer any subclass polymorphism.
-There's no means to inherit `Cat`'s behavior. But we can achieve another kind of
+It does what we expect. But it does not offer any subclass polymorphism. There's
+no means to inherit `Cat`'s behavior. But we can achieve another kind of
 polymorphsim.
 
 ## Static Interface Polymorphism
 
 We can write our `cry_to_sleep()` function for `Animal`, which is a kind of
-interface polymorphism. It will work with any implementer of `Animal`. 
+static polymorphism. It will work with any implementer of `Animal`. 
 
 ```{.rust .cb-nb session=c}
 fn cry_to_sleep<T: Animal>(animal: T) {
@@ -342,8 +342,8 @@ let cat = Cat {};
 cry_to_sleep(cat);
 ```
 
-However, this is not dynamic. The types are required to be known at compile
-time. But there is no virtual function lookup required.
+However, this is not dynamic dispatch. The types are required to be known at compile
+time. But there is no virtual function lookup either.
 
 
 ## Dynamic Interface Polymorphism
@@ -360,10 +360,11 @@ fn cry_to_sleep_dynamic(animal: &dyn Animal) {
 ```
 
 The function `cry_to_sleep_dynamic()` does not use generics. It does require a
-virtual function table and lookup, but what's interesting is who decides a look
-up will happen. The struct `Cat` does not determine whether its method calls
-will use dynamic dispatch when its defined as is the case with many other
-object oriented languages. There's no `virtual fn cry(&self)` in rust.
+virtual function table and lookup, but what's interesting is who decides a
+virtual function look up will happen. The struct `Cat` does not determine
+whether its method calls will use dynamic dispatch when its defined as is the
+case with many other object oriented languages. There's no `virtual fn
+cry(&self)` in rust.
 
 ```{.rust .cb-nb session=c}
 let cat = Cat {};
@@ -371,7 +372,7 @@ cry_to_sleep_dynamic(&cat);
 ```
 
 Instead its the caller who determines whether a trait will use dynamic dispatch
-by using the `dyn` keyword. We'll say more about the mechanism for it later.
+by using the `dyn` keyword. We'll say more about this mechanism for it later.
 
 # No Subtype Polymorphism Unless...
 
@@ -648,8 +649,10 @@ So you can have polymorphism in rust whenever you like, but the funny thing is
 if you have a choice between direct static dispatch or an indirect dynamic
 dispatch, one often prefers static dispatch.
 
-![RUST NEWBIE: So when would I choose dynamic dispatch? CRUSTACEAN: That's the
- neat part. You don't.](rust-oo-the-neat-part.jpg)
+<!-- ![RUST NEWBIE: So when would I choose dynamic dispatch? CRUSTACEAN: That's the
+ neat part. You don't.](rust-oo-the-neat-part.jpg) -->
+
+{{ toot(url="https://mastodon.gamedev.place/@shanecelis/110315691471397903") }}
 
 Static dispatch is known at compile time. It's faster. It's simpler to reason
 about. Use it if you can. I have found though that when dynamic dispatch is
