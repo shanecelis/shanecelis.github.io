@@ -325,58 +325,7 @@ cat.cry();
 ```
 
 It does what we expect. But it does not offer any subclass polymorphism. There's
-no means to inherit `Cat`'s behavior. But we can achieve another kind of
-polymorphism.
-
-## Static Polymorphism
-
-We can write our `cry_to_sleep()` function for `Animal`, which is a kind of
-static polymorphism. It will work with any implementer of `Animal`. 
-
-```{.rust .cb-nb session=c}
-fn cry_to_sleep<T: Animal>(animal: T) {
-  animal.cry();
-  animal.cry();
-  animal.sleep();
-}
-```
-
-```{.rust .cb-nb session=c}
-let cat = Cat {};
-cry_to_sleep(cat);
-```
-
-However, this is not dynamic dispatch. The types are required to be known at compile
-time. But there is no virtual function lookup either.
-
-
-## Dynamic Polymorphism
-
-We can write a `cry_to_sleep()` variant that offers dynamic interface
-polymorphism like this:
-
-```{.rust .cb-nb session=c}
-fn cry_to_sleep_dynamic(animal: &dyn Animal) {
-  animal.cry();
-  animal.cry();
-  animal.sleep();
-}
-```
-
-The function `cry_to_sleep_dynamic()` does not use generics. It does require a
-virtual function table and lookup, but what's interesting is who decides a
-virtual function look up will happen. The struct `Cat` does not determine
-whether its method calls will use dynamic dispatch when its defined as is the
-case with many other object oriented languages. There's no `virtual fn
-cry(&self)` in rust.
-
-```{.rust .cb-nb session=c}
-let cat = Cat {};
-cry_to_sleep_dynamic(&cat);
-```
-
-Instead its the caller who determines whether a trait will use dynamic dispatch
-by using the `dyn` keyword. We'll say more about this mechanism for it later.
+no means to inherit `Cat`'s behavior. 
 
 # No Subtype Polymorphism Unless...
 

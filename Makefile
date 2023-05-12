@@ -1,4 +1,4 @@
-SUBDIRS := content/posts/object-oriented-rust-yuck
+SUBDIRS := content/posts/object-oriented-rust-yuck-and-yet
 define FOREACH
     for DIR in $(SUBDIRS); do \
         $(MAKE) -C $$DIR $(1); \
