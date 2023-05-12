@@ -54,8 +54,8 @@ constitute its programmatic interface.
 
 ```{.rust .cb-nb session=i}
 pub struct Rat {
-  age: u8 // Not public, so Rat can't be constructed and age can't be accessed
-          // externally.
+  age: u8 // Not public, so Rat can't be constructed and age 
+          // can't be accessed externally.
 }
 
 impl Rat {
@@ -108,9 +108,8 @@ dispatch and calls the class's method directly. This is called static dispatch.
 
 # A Model Animal
 
-Rust doesn't have interfaces; it has traits. But let's try to use a trait as
-though it were an interface. We'll try and create the canonical object oriented
-animal example.
+Rust's traits are analogous to C# or Java's interfaces. Let's create the
+canonical object oriented animal example.
 
 ```{.rust .cb-nb session=a}
 trait Animal {
@@ -243,6 +242,7 @@ With static polymorphism you could instead write this:
 ```{.rust .cb-nb session=h}
 trait Factory {
   fn new() -> Self; // "new" is not a keyword in rust.
+                    // It's not a special method.
 }
 
 struct Gorilla { }
@@ -262,9 +262,9 @@ fn gorilla_keeper<F: Factory>() {
 gorilla_keeper::<Gorilla>();
 ```
 
-Then if you needed to pass an object that was configured differently or perhaps
-a mock object, you could do that.
-
+Then you could make a class responsible for making instances of itself without a
+factory class, and you could substitute other classes that were their own
+factory too.
 
 ```{.rust .cb-nb session=h}
 struct MockGorilla {}
@@ -284,12 +284,12 @@ This static polymorphism is limited however: the type must be known at compile
 time so the compiler can emit code for a concrete function that uses that type.
 So we are trading space for time when we use generics in this way. Our binary
 size is larger but our performance is better. But we can't use this on types
-that weren't present at compile-time.
+that weren't present at compile-time. Here's a fun new word: this is called [monomorphization](https://en.wikipedia.org/wiki/Monomorphization).
 
 # Take Two
 
 What we'd like instead is to call these functions on an instance of an object.
-To do that in rust, we add the `&self` parameter.
+To do that in rust, we add the `&self` parameter to our trait.
 
 ```{.rust .cb-nb session=c}
 trait Animal {
@@ -297,7 +297,11 @@ trait Animal {
   fn sleep(&self);
   fn roam(&self);
 }
+```
 
+Now they're instance methods, or as rust calls them associated functions.
+
+```{.rust .cb-nb session=c}
 struct Cat { }
 
 impl Animal for Cat {
@@ -322,9 +326,9 @@ cat.cry();
 
 It does what we expect. But it does not offer any subclass polymorphism. There's
 no means to inherit `Cat`'s behavior. But we can achieve another kind of
-polymorphsim.
+polymorphism.
 
-## Static Interface Polymorphism
+## Static Polymorphism
 
 We can write our `cry_to_sleep()` function for `Animal`, which is a kind of
 static polymorphism. It will work with any implementer of `Animal`. 
@@ -346,7 +350,7 @@ However, this is not dynamic dispatch. The types are required to be known at com
 time. But there is no virtual function lookup either.
 
 
-## Dynamic Interface Polymorphism
+## Dynamic Polymorphism
 
 We can write a `cry_to_sleep()` variant that offers dynamic interface
 polymorphism like this:
@@ -394,9 +398,9 @@ trait Animal {
 ```
 
 And we can also define default implementations of trait functions. That
-seems like a good place to put our dynamic dispatcher functionality call,
+seems like a good place to put our dynamic dispatcher functionality,
 doesn't it? But we need to be able to get an instance of the base "class" or
-struct.
+struct, so we'll add a `self.base()` function.
 
 ```{.rust .cb-nb session=d}
 trait Animal {
@@ -422,7 +426,7 @@ struct Cat {}
 impl Animal for Cat {
   type Base = Cat;
   fn base(&self) -> &Cat {
-    &Cat {}
+    &Cat {} // My base type is... myself?
   }
   fn cry(&self) {
     println!("meow");
@@ -437,9 +441,7 @@ let cat = Cat {};
 cat.cry();
 ```
 
-But calling the unimplemented `roam()` will induce an infinite loop and cause a
-stack overflow. (It's actually nice that it overflows fast instead of hanging
-forever).
+But calling the unimplemented `roam()` will cause a stack overflow. 
 
 ```{.rust .cb-nb session=d}
 let cat = Cat {};
@@ -452,6 +454,9 @@ can define a base type that implements all the functions to prevent infinite
 recursion.
 
 ## Base Animal type
+
+We can rectify that problem by defining a base animal type that implements all
+the functions. This is the base case for our recursive dynamic dispatcher.
 
 ```{.rust .cb-run session=f}
 trait Animal {
@@ -503,14 +508,14 @@ impl Animal for Cat {
 }
 ```
 
-Now we can call `roam()` and we won't get an infinite loop at least.
+Now we can call `roam()` and we won't get an infinite loop.
 
 ```{.rust .cb-nb session=f}
 let cat = Cat {};
 cat.roam();
 ```
 
-# Take Four
+## An Optional Base Type
 
 Instead of requiring a base struct for every object oriented trait, we could
 change our `base()` signature to use an `Option<>`.
@@ -532,13 +537,16 @@ trait Animal {
 }
 ```
 
+## How to Extend the Class's API?
+
 One further issue is what happens when a trait is extended? This happens all the
 time with object oriented code. A subclass adds fields and new public methods.
 Adding fields is easy in this setup:
 
 ```rust
 Bat {
-  speed: f32
+  speed: f32,
+  base_obj: Rat
 }
 ```
 
@@ -551,9 +559,9 @@ trait EndangeredAnimal : Animal {
 ```
 
 I'm going to leave this as an exercise for the reader partly because I think
-it's going to be a mess, but it is doable.
+it's going to be a mess but it is doable.
 
-# Ok, but how do crustaceans actually do this?
+# How do Crustaceans Actually do This?
 
 Let's go back to our second version of this trait.
 
@@ -645,9 +653,14 @@ let cat = Cat {};
 cry_to_sleep_dynamic(&cat);
 ```
 
-So you can have polymorphism in rust whenever you like, but the funny thing is
-if you have a choice between direct static dispatch or an indirect dynamic
-dispatch, one often prefers static dispatch.
+So you can have polymorphism in rust whenever and with whatever trait you like,
+and it doesn't require the original author of the class to mark the right
+methods "virtual". (This is one of my biggest beefs with object oriented design:
+who can get the visibility---public or private?---and the dispatch---virtual or
+not?---right for every downstream consumer? No one.)
+
+A funny thing happens if you have a choice between direct static dispatch or an
+indirect dynamic dispatch though, one often prefers static dispatch.
 
 <!-- ![RUST NEWBIE: So when would I choose dynamic dispatch? CRUSTACEAN: That's the
  neat part. You don't.](rust-oo-the-neat-part.jpg) -->
@@ -659,4 +672,4 @@ about. Use it if you can. I have found though that when dynamic dispatch is
 available on a per call instead of a per object basis, it's amazing how little I
 actually need it. But dynamic dispatch is there for whatever trait you need it
 on, and you don't have to rely on the original author knowing which methods
-needed to be marked "virtual".
+you really needed to be marked "virtual".
