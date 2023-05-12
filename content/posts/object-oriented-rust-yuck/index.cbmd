@@ -653,23 +653,15 @@ let cat = Cat {};
 cry_to_sleep_dynamic(&cat);
 ```
 
-So you can have polymorphism in rust whenever and with whatever trait you like,
-and it doesn't require the original author of the class to mark the right
-methods "virtual". (This is one of my biggest beefs with object oriented design:
-who can get the visibility---public or private?---and the dispatch---virtual or
-not?---right for every downstream consumer? No one.)
-
-A funny thing happens if you have a choice between direct static dispatch or an
-indirect dynamic dispatch though, one often prefers static dispatch.
-
-<!-- ![RUST NEWBIE: So when would I choose dynamic dispatch? CRUSTACEAN: That's the
- neat part. You don't.](rust-oo-the-neat-part.jpg) -->
+So you can have dynamic polymorphism in rust whenever and with whatever trait
+you like, but the funny thing is if one has a choice between direct static
+dispatch or an indirect dynamic dispatch, one often prefers static dispatch.
 
 {{ toot(url="https://mastodon.gamedev.place/@shanecelis/110315691471397903") }}
 
 Static dispatch is known at compile time. It's faster. It's simpler to reason
-about. Use it if you can. I have found though that when dynamic dispatch is
-available on a per call instead of a per object basis, it's amazing how little I
-actually need it. But dynamic dispatch is there for whatever trait you need it
-on, and you don't have to rely on the original author knowing which methods
-you really needed to be marked "virtual".
+about. Use it if you can. I have found that when dynamic dispatch is
+available on a per call instead of a per class basis, it's amazing how little I
+actually use it. But dynamic dispatch is there for whatever trait you need it
+on _and_ you don't have to rely on the original author knowing which methods
+_you_ really needed to be marked "virtual".
