@@ -33,7 +33,8 @@ to think of what it actually means.
 
 ```{.rust .cb-nb session=i}
 struct Mouse { // a "class"
-  age: u8 // an unsigned 8-bit, a byte, or a "datum"
+  age: u8 // an unsigned 8-bit, 
+          // a byte, or a "datum"
 }
 
 impl Mouse {
@@ -54,7 +55,8 @@ constitute its programmatic interface.
 
 ```{.rust .cb-nb session=i}
 pub struct Rat {
-  age: u8 // Not public, so Rat can't be constructed and age 
+  age: u8 // Field is not public so Rat 
+          // can't be constructed and age 
           // can't be accessed externally.
 }
 
@@ -76,7 +78,7 @@ with any of its subclasses. Likewise a caller---that can interact with an
 interface---can interact with any of its implementers.
 
 ```{.rust .cb-nb session=i}
-pub trait Old { // a "interface"
+pub trait Old { // an "interface"
   fn is_old(&self) -> bool;
 }
 ```
@@ -156,7 +158,8 @@ Cat::cry();
 
 However, this `cry()` is akin to a static method in Java or C# terminology.
 There is no instance or object it is called on. Static methods aren't capable of
-any dynamic polymorphism.
+any dynamic polymorphism. These self-less functions are called [associated
+functions](https://practice.rs/method.html) in rust terminology.
 
 ### Static Polymorphism 
 
@@ -197,8 +200,9 @@ fn cry_to_sleep<T: Animal>() {
 ```
 
 Now we can exercise it. You might think we'd do `call_me_sleepy<Cat>()` but rust
-instead uses `cry_to_sleep::<Cat>()`. They call the `::<Type>` a turbo fish.
-I don't know why. Does it `::<>` look like a fish?
+instead uses `cry_to_sleep::<Cat>()`. They call the `::<Type>` a turbo fish. I
+don't know why. Does it `::<>` look like a fish? [Maybe I can see it
+now.](https://turbo.fish)
 
 ```{.rust .cb-nb session=a}
 cry_to_sleep::<Cat>();
@@ -242,13 +246,13 @@ With static polymorphism you could instead write this:
 ```{.rust .cb-nb session=h}
 trait Factory {
   fn new() -> Self; // "new" is not a keyword in rust.
-                    // It's not a special method.
+                    // It's not special.
 }
 
 struct Gorilla { }
 
 impl Factory for Gorilla {
-  fn new() -> Self { // "Self" is a alias for the implementing type.
+  fn new() -> Self { // "Self" is an alias for the implementing type.
     println!("Made a gorilla");
     return Gorilla { }; // This is a "struct constructor."
   }
@@ -272,8 +276,8 @@ struct MockGorilla {}
 impl Factory for MockGorilla {
   fn new() -> MockGorilla {
     println!("Made a mock gorilla");
-    MockGorilla { } // Can omit 'return' and ';' to return last 
-                    // expression.
+    MockGorilla { } // Can omit 'return' and ';' to 
+                    // return last expression.
   }
 }
 
@@ -299,8 +303,7 @@ trait Animal {
 }
 ```
 
-Now they're instance methods, or as rust calls them associated functions.
-
+Now they're instance methods. 
 ```{.rust .cb-nb session=c}
 struct Cat { }
 
@@ -611,6 +614,16 @@ dispatch or an indirect dynamic dispatch, one often prefers static dispatch.
 Static dispatch is known at compile time. It's faster. It's simpler to reason
 about. Use it if you can. I have found that when dynamic dispatch is
 available on a per call instead of a per class basis, it's amazing how little I
-actually use it. But dynamic dispatch is there for whatever trait you need it
+actually use it. But dynamic dispatch is there for whatever trait[^1] you need it
 on _and_ you don't have to rely on the original author knowing which methods
 _you_ really needed to be marked "virtual".
+
+[^1]: Turns out only certain traits can use `dyn`; only traits that are [object
+    safe](https://doc.rust-lang.org/reference/items/traits.html#object-safety):
+    roughly no generics, no constants, and accepts a `&self`, `&mut self`,
+    `Box\<Self\>`, or other smart pointer to self.
+
+# Acknowledgments
+
+Thanks to CandyCorvid and kohugaly at r/rust for their input on [this article's
+thread](https://www.reddit.com/r/rust/comments/13fvpey/object_oriented_programming_in_rustyuck_and_yet/).
