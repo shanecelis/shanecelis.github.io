@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta itemprop="name" content="Shane Celis" />
+  <meta itemprop="description" content="Approximating success one failure at a time" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://shanecelis.github.io/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://shanecelis.github.io/favicon-32x32.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="https://shanecelis.github.io/favicon-16x16.png"
+  />
+  <link
+    rel="shortcut icon"
+    href="https://shanecelis.github.io/favicon.ico"
+  />
+  <link rel="stylesheet" href="https://shanecelis.github.io/style.css"/>
+  
+  <title>Why I&#x27;m Trying Literate Programming</title>
+  
+
+  
+
+  <body id="page">
+
+	
+<header id="site-header" class="animated slideInUp faster">
+  <div class="hdr-wrapper section-inner">
+    <div class="hdr-left">
+      <div class="site-branding">
+        <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a>
+      </div>
+      <nav class="site-nav hide-in-mobile">
+            
+        
+        <a href="https://shanecelis.github.io/posts">Posts</a>
+        
+        <a href="https://shanecelis.github.io/projects">Projects</a>
+        
+        <a href="https://shanecelis.github.io/papers">Papers</a>
+        
+        <a href="https://shanecelis.github.io/about">About</a>
+        
+      </nav>
+    </div>
+    <div class="hdr-right hdr-icons">
+      <span class="hdr-social hide-in-mobile">
+        
+
+<a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@shanecelis" target="_blank" rel="noopener me"
+   title="mastodon">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M3.018 12.008c-.032-1.26-.012-2.448-.012-3.442 0-4.338 2.843-5.61 2.843-5.61 1.433-.658 3.892-.935 6.45-.956h.062c2.557.02 5.018.298 6.451.956 0 0 2.843 1.272 2.843 5.61 0 0 .036 3.201-.396 5.424-.275 1.41-2.457 2.955-4.963 3.254-1.306.156-2.593.3-3.965.236-2.243-.103-4.014-.535-4.014-.535 0 .218.014.426.04.62.084.633.299 1.095.605 1.435.766.85 2.106.93 3.395.974 1.82.063 3.44-.449 3.44-.449l.076 1.646s-1.274.684-3.542.81c-1.25.068-2.803-.032-4.612-.51-1.532-.406-2.568-1.29-3.27-2.471-1.093-1.843-1.368-4.406-1.431-6.992zm3.3 4.937v-2.548l2.474.605a20.54 20.54 0 0 0 1.303.245c.753.116 1.538.2 2.328.235 1.019.047 1.901-.017 3.636-.224 1.663-.199 3.148-1.196 3.236-1.65.082-.422.151-.922.206-1.482a33.6 33.6 0 0 0 .137-2.245c.015-.51.02-.945.017-1.256v-.059c0-1.43-.369-2.438-.963-3.158a3.008 3.008 0 0 0-.584-.548c-.09-.064-.135-.089-.13-.087-1.013-.465-3.093-.752-5.617-.773h-.046c-2.54.02-4.62.308-5.65.782.023-.01-.021.014-.112.078a3.008 3.008 0 0 0-.584.548c-.594.72-.963 1.729-.963 3.158 0 .232 0 .397-.003.875a77.483 77.483 0 0 0 .014 2.518c.054 2.197.264 3.835.7 5.041.212.587.472 1.07.78 1.45a5.7 5.7 0 0 1-.18-1.505zM8.084 6.37a1.143 1.143 0 1 1 0 2.287 1.143 1.143 0 0 1 0-2.287z"/> </svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;github.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="github">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;twitter.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="twitter">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+  
+</a>
+
+<a href="mailto:shane.celis@gmail.com" target="_blank" rel="noopener me"
+   title="email">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+  
+</a>
+
+
+      </span>
+      <button id="menu-btn" class="hdr-btn" title="Menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-menu"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div id="mobile-menu" class="animated fast">
+  <ul>
+    
+    <li><a href="https://shanecelis.github.io/posts">Posts</a></li>
+    
+    <li><a href="https://shanecelis.github.io/projects">Projects</a></li>
+    
+    <li><a href="https://shanecelis.github.io/papers">Papers</a></li>
+    
+    <li><a href="https://shanecelis.github.io/about">About</a></li>
+    
+  </ul>
+</div>
+
+	
+	
+
+		
+<main class="site-main section-inner animated fadeIn faster">
+  <article class="thin">
+	<header class="post-header">
+	  <div class="post-meta">
+		
+		<span>May 20, 2013</span>
+		<small> - 
+<span class="reading-time" title="Estimated read time">
+  
+  7 min read
+  
+</span>
+</small>
+		
+            
+	  </div>
+	  <h1>Why I&#x27;m Trying Literate Programming</h1>
+	</header>
+
+	<div class="content">
+        
+	  <p>I decided to experiment with literate programming recently because I
+felt like something must be wrong with this story: A colleague and I
+began a research project using MATLAB for a class.  We both started
+with about the same amount of MATLAB experience: close to nil.  We
+both started at the ground floor of development.  There was no legacy
+code to speak of, and again there was only two of us.  We spec’d out
+most of the simulation as a LaTeX document that clearly described the
+simulation mathematically based on a reference implementation.  In my
+mind, there isn’t a better scenario for collaboration. However, late
+into the project, my colleague was getting shut out of participating
+in development.  What shut my colleague out?</p>
+<p>Let me be clear, my colleague was willing, smart, and hard-working.
+Just the kind of person one hopes to be working with, yet the project
+had grown into a labyrinth that only I knew how to navigate.  Without
+me on hand to help navigate the growing code base, his efforts seemed
+stymied.  I will be the first to admit that the code, and in
+particular my code, was not stellar—it was written to meet a
+deadline and both of us were green when it came to MATLAB.  However,
+this wasn’t a large project, but it did grow rapidly.  Below is a
+graph of the total commits as shown in github.  (The repository I’m
+showing is not public unfortunately.)</p>
+<img src="commits-graph.png"/>
+<p>My expectation was that having two people developing one code base
+from the beginning with equivalent experience should be a recipe for
+success.  That did not turn out to be the case.  Although the project
+did not fail outright, we ran our experiments, produced results,
+and should ultimately get a publication out of it.  However, judging
+it on the basis of enabling collaboration, it was a failure with what
+are some of the best starting conditions possible.  Just think how
+much worse a project will fare when one’s working on a code base with
+<em>n</em> contributors; each contributor joining at a different time with a
+differing amount of experience with the language, domain, and tools;
+and on a code base with a longer history and its own legacy issues?
+One glimmer of how things could be different was provided by the spec
+we wrote before beginning the implementation.</p>
+<p>We had written up a spec that described the dynamics of the simulation
+as mathematical relationships.  Everything we wanted the simulation to
+do was clear and easily inspectable.  As we wrote the implementation,
+however, what was clear became obscure.  “What does this section of
+code do?”  If one compared the code with the spec and squinted one
+could start to piece together how the implementation fulfilled the
+spec.  But this connection was fleeting.  One had to compare between
+the spec and the code, make the connection, then enjoy the
+enlightenment before forgetting it.  As the code base became the ground
+truth going beyond the spec, the utility of the spec was crippled,
+e.g., “Was the spec updated since we decided to do Y instead of X?”
+Of course it hasn’t.  I’ve been too busy implementing Y.</p>
+<p>In fact the spec ended up being a kind of reverse-engineered literate
+program.  We used a reference implementation to draw out the details
+of what the original simulation was actually doing.  In it, we had
+sections of code that we decoded into mathematical relationships.  It
+is kind of amazing how much some code can be compressed when
+describing it mathematically.  We could examine the code and math
+directly, changing that connection from fleeting into something
+lasting.  Given this reverse-engineered literate program, we then
+<em>enthusiastically</em> went and re-encoded the math into code again and
+lost that connection and scrutability.</p>
+<p>All I’ve said about literate programming so far is that it had math
+and code in one document.  I think of literate programming as
+inverting the relationship between comments and code.  In normal
+programming, comments are superfluous, thrown out, and don’t matter to
+the compiler.  The code comes first and foremost and if you’re lucky,
+maybe there are some comments to lead you astray.  In a literate
+program, one begins by writing a document for someone to read.  Within
+the document, one specifies sections of code in whatever order he or
+she feel is best for the reader.  Here is an <a href="https://shanecelis.github.io/posts/why-im-trying-literate-programming/hello-emacsy-paper.pdf">example literate
+program</a> and its
+<a href="https://shanecelis.github.io/posts/why-im-trying-literate-programming/hello-emacsy.nw.txt">literate source
+code</a>; it uses
+the literate programming tool <a href="http://www.cs.tufts.edu/~nr/noweb/">noweb</a>.
+I wrote those for the Emacsy project which I proposed as <a href="https://google-melange.appspot.com/gsoc/proposal/review/google/gsoc2013/shanecelis/1">a Google Summer of
+Code
+project</a>.</p>
+<p>An experiment that I would love to have tried is to take that spec,
+chuck out the reference implementation sections of code, and write the
+implementation as a truly literate program.  I didn’t have enough
+experience with literate programming at the time to think of it, but
+even today the thought of encouraging someone to collaborate on a
+literate program seems like a hard sell, e.g., “Do you like to code?
+Great. Do you like to write? Awesome. Do you like math? No. Well, two out of
+three is WAY better than average.”  But I am finding a lot of
+advantages to literate programming.</p>
+<h2 id="advantages">Advantages</h2>
+<p><strong>A picture is worth a thousand ASCII pictures.</strong> A big advantage of
+literate programming is being able to include graphics.  I had a
+problem recently where I was implementing a simple 2D ray cast.  I
+sketched it out on <a href="http://www.fiftythree.com/paper">Paper 53</a>,
+labeled my variables, then baked that drawing right into the document.
+Usually, that connection—What does this code actually mean?  What
+does it represent?—would have been fleeting.  I would have made a
+sketch on graph paper, written the code, inevitably lost or trashed
+the sketch.  Suppose I find a bug in my code months later.  How am I
+going to figure it out?  Well, I’ll probably try to reverse-engineer
+my sketch.  Why do I do this to myself and everyone that has to
+maintain this code after me!?  With literate programming I made that
+connection of what does this code mean into something lasting, and
+it’s not in a separate document that will be forgotten, unloved, and
+superseded because it’s the ground truth: <em>it’s the source of the
+source</em>.</p>
+<p><img src="https://shanecelis.github.io/posts/why-im-trying-literate-programming/vision-page-2.png" alt="A picture is worth a thousand ASCII pictures." title="A picture is worth a thousand ASCII pictures." /></p>
+<p><strong>You can read it like a book.</strong> Another thing I didn’t appreciate
+initially is that a literate program provides an unambiguous place to
+start with an unfamiliar code base and a direction to go.  Literate
+programming linearizes a code base.  More than that it linearizes the
+code to be understandable—not compilable.  Imagine if books weren’t
+arranged in a linear fashion.  Instead of starting at page one, expert
+readers suggest, “I like to start on page 34 work backwards, then jump
+to page 62.”  Normally when I’ve decided I want to alter an existing
+code base, first I have to acquaint myself with it. I dive into
+whatever looks most promising: README, HACKING, main.c, or project.h.
+I look at those by convention, but the meat of the project that I want
+to alter could be anywhere in that file tree, and it may not be
+documented at all. I search, grep, and basically bumble around until I
+find the spots I need to edit. A literate program is a <a href="http://en.wikipedia.org/wiki/Topological_sorting">topological
+ordering</a> of that
+file tree, ordered to make it easier to understand.</p>
+<p><img src="https://shanecelis.github.io/posts/why-im-trying-literate-programming/topo-order.png" alt="topological order" /></p>
+<p><strong>The comfort of plaintext, the richness of PDF.</strong> It is kind of
+amazing how low-tech coding is.  If it’s not plaintext, then it will
+get corrupted and destroy your weekend.  This is partly why I can’t
+take fully to Mathematica, which does allow for a rich, graphical
+programming and documentation language.  Plaintext is comforting.  In
+a world of inscrutable binary formats, plaintext stands out as being
+readily inspectable, wholly knowable, effortlessly editable.  Most of
+the literate programming tools use LaTeX as their documentation
+language because Knuth, who started it all, did.  And it is comforting
+that my documentation and code is in plaintext, can be checked in to
+git and diff’d, but that doesn’t prevent me from using a richer medium
+to better describe what my program does, should do, and can inspire
+others to do.</p>
+<h2 id="disadvantages">Disadvantages</h2>
+<p><strong>LaTeX raises the barrier to entry.</strong> If a literate program has a
+mathematical bent, then using LaTeX as the documentation language is a
+blessing.  But LaTeX is a tricky tool and it raises the barrier to
+entry considerably for would-be collaborators.  If I wanted to write a
+literate program that was not math heavy, I’d prefer using Markdown as
+the documentation language.  The first literate program tool was
+<a href="http://en.wikipedia.org/wiki/WEB">WEB</a>, and it dictated the
+programming language, a dialect of pascal, and the documentation
+language, LaTeX.  Many tools that followed were programming language
+neutral, but the documentation language has not been allowed the same
+freedom.  I think the programmer should be able to select both
+languages.  The <a href="http://jashkenas.github.io/docco/">Docco</a> project
+uses plain old Markdown as its documentation language.  Its simplicity
+is inspiring.  The downsides are that one may not reorder code to ease
+its explanation; the code must be in the order the compiler expects;
+and its one code file per Markdown file.</p>
+<p><strong>Tool support is lacking.</strong> Literate programming is not mainstream, so
+the tool support is sometimes lacking.  For instance, <code>#line</code> compiler
+directives are a necessity.  If compiler errors direct you to the
+generated source code rather than the literate code, forget every
+mildly good thing you’ve ever heard about literate programming; you’ve
+entered hell. I’ve been writing a lot of code in <a href="http://www.gnu.org/software/guile/">GNU Guile
+Scheme</a> and I needed <code>#line</code>
+directives, which seems imminently doable using reader macros.
+However, it actually did require me to patch Guile in order to do it
+in the general case.  I will write up another post and share that
+patch soon.</p>
+<p>There are some other disadvantages:</p>
+<ul>
+<li>
+<p><strong>It takes more time.</strong> Literate programming does take more time than
+just slapping some code together.</p>
+</li>
+<li>
+<p><strong>Multiple modes in Emacs, ha!</strong> I use Emacs, and Emacs does many
+wonderful things, but multiple modes is not one of them.  In a
+noweb file, multiple syntaxes are nested together and the Emacs
+regex-based syntax highlighter and mode detector are not good
+enough.  I wish Emacs used <a href="https://en.wikipedia.org/wiki/Parsing_expression_grammar">Parsing Expression
+Grammars (PEGs).</a></p>
+</li>
+<li>
+<p><strong>Writing raises the barrier to entry.</strong> Knuth asks us to not only
+write good code but also to write well, and neither of these are
+easy tasks.  Asking for both from every contributor is a tall
+order.</p>
+</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>I’m not suggesting that literate programming is a silver bullet or the
+best way to write every program.  I don’t use it for everything.  I’m
+only using it on programs that I want to encourage collaboration on.
+My hope is that it will help me avoid the story I outlined at the
+beginning where collaborators are shut out of participating because
+the edifice one builds becomes an inscrutable labyrinth; however,
+literate programming may be a double-edged sword due to it raising the
+barrier to entry.  I haven’t gotten the chance to see whether literate
+programming helps or hurts a project.  My current projects are solo so
+far, but I am enjoying trying to program literately.  There is a
+grandeur in this kind of programming.</p>
+
+	</div>
+	<hr class="post-end">
+	<footer class="post-info">
+    
+	  <p>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+		
+		
+		<span class="tag"><a href="https://shanecelis.github.io/tags/literate-programming/">literate programming</a></span>
+		
+		<span class="tag"><a href="https://shanecelis.github.io/tags/emacs/">emacs</a></span>
+		
+		
+    </p>
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1930 Words</p>
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2013-05-20</p>
+    
+	</footer>
+  </article>
+    
+  
+  <div class="post-nav thin">
+	
+	
+  </div>
+
+  
+</main>
+
+	  </div>
+	  
+	  
+
+
+
+<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+  <p>&copy; 2023 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
+  <p>Made with <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &#183; Theme <a href="https://github.com/VersBinarii/hermit_zola" target="_blank" rel="noopener">Hermit_Zola</a>
+	
+  </p>
+</footer>
+
+
+
+
+	</div>
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+	<!-- Math rendering -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, { delimiters: [ {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+    
+		<link href="https://unpkg.com/highlightjs-badge/highlightjs/styles/vs2015.css" rel="stylesheet">
+		<!-- https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/  for min version -->
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs/highlight.pack.js"></script>
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs-badge.min.js"></script>
+		<script>
+			var pres = document.querySelectorAll("pre>code");
+			for (var i = 0; i < pres.length; i++) {
+				hljs.highlightBlock(pres[i]);
+			}
+		</script>
+		
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+			<script>
+				var options = {
+					copyIconClass: "gg-clipboard",
+					checkIconClass: "gg-check"
+				};
+				window.highlightJsBadge(options);
+			</script>
+		
+
+	
+
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+    
+    
+
+	
+  </body>
+</html>

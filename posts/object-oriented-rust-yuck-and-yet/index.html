@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta itemprop="name" content="Shane Celis" />
+  <meta itemprop="description" content="Approximating success one failure at a time" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://shanecelis.github.io/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://shanecelis.github.io/favicon-32x32.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="https://shanecelis.github.io/favicon-16x16.png"
+  />
+  <link
+    rel="shortcut icon"
+    href="https://shanecelis.github.io/favicon.ico"
+  />
+  <link rel="stylesheet" href="https://shanecelis.github.io/style.css"/>
+  
+  <title>Object Oriented Programming in Rust—Yuck and Yet...</title>
+  
+
+  
+
+  <body id="page">
+
+	
+<header id="site-header" class="animated slideInUp faster">
+  <div class="hdr-wrapper section-inner">
+    <div class="hdr-left">
+      <div class="site-branding">
+        <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a>
+      </div>
+      <nav class="site-nav hide-in-mobile">
+            
+        
+        <a href="https://shanecelis.github.io/posts">Posts</a>
+        
+        <a href="https://shanecelis.github.io/projects">Projects</a>
+        
+        <a href="https://shanecelis.github.io/papers">Papers</a>
+        
+        <a href="https://shanecelis.github.io/about">About</a>
+        
+      </nav>
+    </div>
+    <div class="hdr-right hdr-icons">
+      <span class="hdr-social hide-in-mobile">
+        
+
+<a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@shanecelis" target="_blank" rel="noopener me"
+   title="mastodon">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M3.018 12.008c-.032-1.26-.012-2.448-.012-3.442 0-4.338 2.843-5.61 2.843-5.61 1.433-.658 3.892-.935 6.45-.956h.062c2.557.02 5.018.298 6.451.956 0 0 2.843 1.272 2.843 5.61 0 0 .036 3.201-.396 5.424-.275 1.41-2.457 2.955-4.963 3.254-1.306.156-2.593.3-3.965.236-2.243-.103-4.014-.535-4.014-.535 0 .218.014.426.04.62.084.633.299 1.095.605 1.435.766.85 2.106.93 3.395.974 1.82.063 3.44-.449 3.44-.449l.076 1.646s-1.274.684-3.542.81c-1.25.068-2.803-.032-4.612-.51-1.532-.406-2.568-1.29-3.27-2.471-1.093-1.843-1.368-4.406-1.431-6.992zm3.3 4.937v-2.548l2.474.605a20.54 20.54 0 0 0 1.303.245c.753.116 1.538.2 2.328.235 1.019.047 1.901-.017 3.636-.224 1.663-.199 3.148-1.196 3.236-1.65.082-.422.151-.922.206-1.482a33.6 33.6 0 0 0 .137-2.245c.015-.51.02-.945.017-1.256v-.059c0-1.43-.369-2.438-.963-3.158a3.008 3.008 0 0 0-.584-.548c-.09-.064-.135-.089-.13-.087-1.013-.465-3.093-.752-5.617-.773h-.046c-2.54.02-4.62.308-5.65.782.023-.01-.021.014-.112.078a3.008 3.008 0 0 0-.584.548c-.594.72-.963 1.729-.963 3.158 0 .232 0 .397-.003.875a77.483 77.483 0 0 0 .014 2.518c.054 2.197.264 3.835.7 5.041.212.587.472 1.07.78 1.45a5.7 5.7 0 0 1-.18-1.505zM8.084 6.37a1.143 1.143 0 1 1 0 2.287 1.143 1.143 0 0 1 0-2.287z"/> </svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;github.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="github">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;twitter.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="twitter">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+  
+</a>
+
+<a href="mailto:shane.celis@gmail.com" target="_blank" rel="noopener me"
+   title="email">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+  
+</a>
+
+
+      </span>
+      <button id="menu-btn" class="hdr-btn" title="Menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-menu"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div id="mobile-menu" class="animated fast">
+  <ul>
+    
+    <li><a href="https://shanecelis.github.io/posts">Posts</a></li>
+    
+    <li><a href="https://shanecelis.github.io/projects">Projects</a></li>
+    
+    <li><a href="https://shanecelis.github.io/papers">Papers</a></li>
+    
+    <li><a href="https://shanecelis.github.io/about">About</a></li>
+    
+  </ul>
+</div>
+
+	
+	
+
+		
+<main class="site-main section-inner animated fadeIn faster">
+  <article class="thin">
+	<header class="post-header">
+	  <div class="post-meta">
+		
+		<span>May 07, 2023</span>
+		<small> - 
+<span class="reading-time" title="Estimated read time">
+  
+  9 min read
+  
+</span>
+</small>
+		
+            
+	  </div>
+	  <h1>Object Oriented Programming in Rust—Yuck and Yet...</h1>
+	</header>
+
+	<div class="content">
+        
+	  <h1 id="introduction">Introduction</h1>
+<p>I remember a coworker, gosh, maybe two decades ago, telling me you can
+write object oriented code in any language—even C. We were happily
+writing Java at the time (see, a long time ago), and I was confused
+because obviously the C language does not natively support object
+oriented programming but <a href="https://staff.washington.edu/gmobus/Academics/TCES202/Moodle/OO-ProgrammingInC.html">he was
+right</a>.
+Many people have written object oriented code in C. For instance
+<a href="https://www.gtk.org">GTK</a> uses the <a href="https://en.wikipedia.org/wiki/GObject">GObject
+library</a>.
+<a href="https://www.nethack.org">Nethack</a> is another example. So object
+oriented programming can be done in C but the language does not
+explicitly facilitate it. Rust is another language that has questionable
+support for conventional object oriented programming. Suppose we want
+conventional object oriented support, they can’t stop us from doing
+object oriented programming if that’s what we’re determined to do.</p>
+<h1 id="object-oriented-programming">Object Oriented Programming</h1>
+<p><img src="https://shanecelis.github.io/posts/object-oriented-rust-yuck-and-yet/oo.png" alt="Object oriented mind graph showing it connect polymorphism, abstraction, encapsulation, inheritance, classes, and objects" /></p>
+<p>What is object oriented programming? Gosh, it’s been with us so long
+it’s hard to think of what it actually means.</p>
+<ul>
+<li>A class defines some data and provides methods.</li>
+</ul>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>Mouse { </span><span style="color:#65737e;">// a &quot;class&quot;
+</span><span>  </span><span style="color:#bf616a;">age</span><span>: </span><span style="color:#b48ead;">u8 </span><span style="color:#65737e;">// an unsigned 8-bit, 
+</span><span>          </span><span style="color:#65737e;">// a byte, or a &quot;datum&quot;
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Mouse {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">is_old</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; </span><span style="color:#b48ead;">bool </span><span>{ </span><span style="color:#65737e;">// a &quot;method&quot;
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.age &gt;= </span><span style="color:#d08770;">2
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<ul>
+<li>An object is an instance of a class, of which there can be many.</li>
+</ul>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> mouse = Mouse { age: </span><span style="color:#d08770;">1 </span><span>}; </span><span style="color:#65737e;">// an &quot;object&quot;
+</span></code></pre>
+<ul>
+<li>Encapsulation: The data a class defines may be private and its
+public methods constitute its programmatic interface.</li>
+</ul>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">pub struct </span><span>Rat {
+</span><span>  </span><span style="color:#bf616a;">age</span><span>: </span><span style="color:#b48ead;">u8 </span><span style="color:#65737e;">// Field is not public so Rat 
+</span><span>          </span><span style="color:#65737e;">// can&#39;t be constructed and age 
+</span><span>          </span><span style="color:#65737e;">// can&#39;t be accessed externally.
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Rat {
+</span><span>  </span><span style="color:#b48ead;">pub fn </span><span style="color:#8fa1b3;">new</span><span>(</span><span style="color:#bf616a;">years_old</span><span>: </span><span style="color:#b48ead;">u8</span><span>) -&gt; Rat { </span><span style="color:#65737e;">// a &quot;static method&quot;
+</span><span>    </span><span style="color:#b48ead;">return</span><span> Rat { age: years_old };
+</span><span>  }
+</span><span>
+</span><span>  </span><span style="color:#b48ead;">pub fn </span><span style="color:#8fa1b3;">is_old</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; </span><span style="color:#b48ead;">bool </span><span>{ </span><span style="color:#65737e;">// an &quot;instance method&quot;
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.age &gt;= </span><span style="color:#d08770;">3
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">let</span><span> rat = Rat::new(</span><span style="color:#d08770;">3</span><span>);
+</span></code></pre>
+<ul>
+<li>Abstraction: A caller—that can interact with a class—can also
+interact with any of its subclasses. Likewise a caller—that can
+interact with an interface—can interact with any of its
+implementers.</li>
+</ul>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">pub trait </span><span>Old { </span><span style="color:#65737e;">// an &quot;interface&quot;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">is_old</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; </span><span style="color:#b48ead;">bool</span><span>;
+</span><span>}
+</span></code></pre>
+<ul>
+<li>Inheritance: One can extend a class adding new data and modifying
+its methods.</li>
+</ul>
+<p>We’ll come back to this one. The short answer is that rust does not
+support implementation inheritance natively: structs cannot inherit from
+one another. But a trait can inherit from other traits.</p>
+<h2 id="polymorphism">Polymorphism</h2>
+<p>What is polymorphism? Polymorphism is the ability to access objects of
+different types through the same programmatic interface. There is
+subclass polymorphism: a child class can be substituted anywhere that
+accepts its parent. There is interface polymorphism: a class that
+implements an interface can be substituted anywhere that accepts that
+interface.</p>
+<p>Furthermore there are two variants of polymorphism: static and dynamic.
+With dynamic polymorphism a caller does not need to know the class yet
+it can still interact via its interface. Dynamic polymorphism is
+traditionally implemented with a virtual method table that each class
+and subclass maintains. This introduces some overhead in space and time:
+there’s an lookup for a virtual method call. This is called dynamic
+dispatch.</p>
+<p>Then there is static polymorphism, where code can be written to work
+some interface but the compiler knows what class is given and omits the
+dynamic dispatch and calls the class’s method directly. This is called
+static dispatch.</p>
+<h1 id="a-model-animal">A Model Animal</h1>
+<p>Rust’s traits are analogous to C# or Java’s interfaces. Let’s create the
+canonical object oriented animal example.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Animal {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>();
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>();
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>();
+</span><span>}
+</span></code></pre>
+<p>It crys, sleeps, and roams. What more could you ask for?</p>
+<h2 id="a-cat">A Cat</h2>
+<p>Let’s make a <code>Cat</code> “class” to implement it. Rust calls it a struct.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>Cat { }
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>Cat {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>() {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">meow</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>() {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">Zzzz</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>() {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">patter patter pounce</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<h3 id="run-it">Run it</h3>
+<p>We can exercise it like so.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>Cat::cry();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
+</span></code></pre>
+<p><a href="https://www.deviantart.com/pixelpandaarts/art/Crying-Cat-Meme-900571649">
+<img alt="Crying cat meme in pixel art form by
+PixelPandaArts" src="https://shanecelis.github.io/processed_images/crying-cat-meme.a0b5e1ba996b6a5a.png" />
+</a></p>
+<p>However, this <code>cry()</code> is akin to a static method in Java or C#
+terminology. There is no instance or object it is called on. Static
+methods aren’t capable of any dynamic polymorphism. These self-less
+functions are called <a href="https://practice.rs/method.html">associated
+functions</a> in rust terminology.</p>
+<h3 id="static-polymorphism">Static Polymorphism</h3>
+<p>However, rust can do static polymorphism. Say we had another “class”
+called <code>Bird</code>.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>Bird {}
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>Bird {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>() {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">chirp</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>() {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">Zzzz</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>() {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">flit flit flurp</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>We can of couse make calls on the class like so.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>Bird::roam();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>flit flit flurp
+</span></code></pre>
+<p>But we can also use rust’s generics to write code that will handle any
+<code>Animal</code> struct without requiring an instance.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry_to_sleep</span><span>&lt;T: Animal&gt;() {
+</span><span>  T::cry();
+</span><span>  T::cry();
+</span><span>  T::sleep();
+</span><span>}
+</span></code></pre>
+<p>Now we can exercise it. You might think we’d do <code>call_me_sleepy&lt;Cat&gt;()</code>
+but rust instead uses <code>cry_to_sleep::&lt;Cat&gt;()</code>. They call the <code>::&lt;Type&gt;</code>
+a turbo fish. I don’t know why. Does it <code>::&lt;&gt;</code> look like a fish? <a href="https://turbo.fish">Maybe
+I can see it now.</a></p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>cry_to_sleep::&lt;Cat&gt;();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
+</span><span>meow
+</span><span>Zzzz
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>cry_to_sleep::&lt;Bird&gt;();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>chirp
+</span><span>chirp
+</span><span>Zzzz
+</span></code></pre>
+<p>I think this is pretty cool. It was only recently that <a href="https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members">C# got interface
+static
+methods</a>,
+and you can use them to do all kinds of cool things like make generics
+work seamlessly with math operators in C#. And you can use it to good
+effect.</p>
+<h3 id="factories-factories-everywhere">Factories. Factories everywhere.</h3>
+<p>Remember how everyone needed a factory class in addition to their class?
+Why did they need a factory? Because <code>new</code> is not dynamically
+dispatched; <code>new</code> only operates on a concrete class. You can’t <code>new</code> an
+interface. So to workaround that we added an indirection, a whole other
+class we call a factory, which is really just a glorified constructor, a
+dynamically dispatched constructor.</p>
+<p>You’d think one could have added a static method to their class like
+this:</p>
+<pre data-lang="c#" style="background-color:#2b303b;color:#c0c5ce;" class="language-c# "><code class="language-c#" data-lang="c#"><span style="color:#b48ead;">class </span><span style="color:#ebcb8b;">Gorilla </span><span style="color:#eff1f5;">{
+</span><span style="color:#eff1f5;">  </span><span style="color:#b48ead;">public static </span><span style="color:#eff1f5;">Gorilla </span><span style="color:#8fa1b3;">New</span><span style="color:#eff1f5;">() { ... }
+</span><span style="color:#eff1f5;">}
+</span><span>
+</span><span style="color:#b48ead;">var </span><span style="color:#bf616a;">gorilla </span><span>= </span><span style="color:#bf616a;">Gorilla</span><span>.</span><span style="color:#bf616a;">New</span><span>();
+</span></code></pre>
+<p>But one could not substitute a Gorilla class with some other Gorilla
+class. You can substitute an instance of the Gorilla class with any of
+its descendant instances but not the class itself. There’s only one
+Gorilla class.</p>
+<h4 id="a-new-way">A New Way</h4>
+<p>With static polymorphism you could instead write this:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Factory {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">new</span><span>() -&gt; </span><span style="color:#b48ead;">Self</span><span>; </span><span style="color:#65737e;">// &quot;new&quot; is not a keyword in rust.
+</span><span>                    </span><span style="color:#65737e;">// It&#39;s not special.
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">struct </span><span>Gorilla { }
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Factory </span><span style="color:#b48ead;">for </span><span>Gorilla {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">new</span><span>() -&gt; </span><span style="color:#b48ead;">Self </span><span>{ </span><span style="color:#65737e;">// &quot;Self&quot; is an alias for the implementing type.
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">Made a gorilla</span><span>&quot;);
+</span><span>    </span><span style="color:#b48ead;">return</span><span> Gorilla { }; </span><span style="color:#65737e;">// This is a &quot;struct constructor.&quot;
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">gorilla_keeper</span><span>&lt;F: Factory&gt;() {
+</span><span>  </span><span style="color:#b48ead;">let</span><span> gorilla1 = F::new();
+</span><span>  </span><span style="color:#b48ead;">let</span><span> gorilla2 = F::new();
+</span><span>}
+</span><span>
+</span><span>gorilla_keeper::&lt;Gorilla&gt;();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Made a gorilla
+</span><span>Made a gorilla
+</span></code></pre>
+<p>Then you could make a class responsible for making instances of itself
+without a factory class, and you could substitute other classes that
+were their own factory too.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>MockGorilla {}
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Factory </span><span style="color:#b48ead;">for </span><span>MockGorilla {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">new</span><span>() -&gt; MockGorilla {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">Made a mock gorilla</span><span>&quot;);
+</span><span>    MockGorilla { } </span><span style="color:#65737e;">// Can omit &#39;return&#39; and &#39;;&#39; to 
+</span><span>                    </span><span style="color:#65737e;">// return last expression.
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span>gorilla_keeper::&lt;MockGorilla&gt;();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Made a mock gorilla
+</span><span>Made a mock gorilla
+</span></code></pre>
+<p>This static polymorphism is limited however: the type must be known at
+compile time so the compiler can emit code for a concrete function that
+uses that type. So we are trading space for time when we use generics in
+this way. Our binary size is larger but our performance is better. But
+we can’t use this on types that weren’t present at compile-time. Here’s
+a fun new word: this is called
+<a href="https://en.wikipedia.org/wiki/Monomorphization">monomorphization</a>.</p>
+<h1 id="take-two">Take Two</h1>
+<p>What we’d like instead is to call these functions on an instance of an
+object. To do that in rust, we add the <code>&amp;self</code> parameter to our trait.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Animal {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>);
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>);
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>);
+</span><span>}
+</span></code></pre>
+<p>Now they’re instance methods.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>Cat { }
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>Cat {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">meow</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">Zzzz</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">patter patter pounce</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>Now let’s try and run it.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
+</span><span>cat.</span><span style="color:#96b5b4;">cry</span><span>();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
+</span></code></pre>
+<p>It does what we expect. But it does not offer any subclass polymorphism.
+There’s no means to inherit <code>Cat</code>’s behavior.</p>
+<h1 id="no-subtype-polymorphism-unless">No Subtype Polymorphism Unless…</h1>
+<p><img src="https://shanecelis.github.io/posts/object-oriented-rust-yuck-and-yet/oo-crossed-out.png" alt="Object oriented mind graph showing it connects polymorphism, abstraction, encapsulation, classes, and objects with inheritance crossed out, which rust doesn’t support." /></p>
+<p>If we want subtype polymorphism, we’re going to have to implement it
+ourselves. Our trait probably needs to know the base type. We can make
+our trait <code>Animal</code> generic with respect to a <code>Base</code> type that is some
+other kind of <code>Animal</code> like so:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Animal {
+</span><span>  </span><span style="color:#b48ead;">type </span><span>Base : Animal;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>);
+</span><span>  </span><span style="color:#65737e;">// ...
+</span><span>}
+</span></code></pre>
+<p>And we can also define default implementations of trait functions. That
+seems like a good place to put our dynamic dispatcher functionality,
+doesn’t it? But we need to be able to get an instance of the base
+“class” or struct, so we’ll add a <code>self.base()</code> function.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Animal {
+</span><span>  </span><span style="color:#b48ead;">type </span><span>Base : Animal;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">base</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; &amp;</span><span style="color:#b48ead;">Self::</span><span>Base;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">base</span><span>().</span><span style="color:#96b5b4;">cry</span><span>();
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">base</span><span>().</span><span style="color:#96b5b4;">sleep</span><span>();
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">base</span><span>().</span><span style="color:#96b5b4;">roam</span><span>();
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>Now we can implement only part of <code>Animal</code> for <code>Cat</code>.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>Cat {}
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>Cat {
+</span><span>  </span><span style="color:#b48ead;">type </span><span>Base = Cat;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">base</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; &amp;Cat {
+</span><span>    &amp;Cat {} </span><span style="color:#65737e;">// My base type is... myself?
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">meow</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>If we call <code>cry()</code>, it works.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
+</span><span>cat.</span><span style="color:#96b5b4;">cry</span><span>();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
+</span></code></pre>
+<p>But calling the unimplemented <code>roam()</code> will cause a stack overflow.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
+</span><span>cat.</span><span style="color:#96b5b4;">roam</span><span>();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>
+</span><span>thread &#39;main&#39; has overflowed its stack
+</span><span>fatal runtime error: stack overflow
+</span></code></pre>
+<p>The reason that happens is because we infinitely recurse down the base
+type. We call <code>self.base().base().base()...</code> when there’s no default
+implementation. We can define a base type that implements all the
+functions to prevent infinite recursion.</p>
+<h2 id="base-animal-type">Base Animal type</h2>
+<p>We can rectify that problem by defining a base animal type that
+implements all the functions. This is the base case for our recursive
+dynamic dispatcher.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>BaseAnimal {}
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>BaseAnimal {
+</span><span>  </span><span style="color:#b48ead;">type </span><span>Base = BaseAnimal;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">base</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; &amp;BaseAnimal {
+</span><span>    panic!(&quot;</span><span style="color:#a3be8c;">Never call me here.</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) { 
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">base cry</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) { 
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">base sleep</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) { 
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">base roam</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>Cat {}
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>Cat {
+</span><span>  </span><span style="color:#b48ead;">type </span><span>Base = BaseAnimal;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">base</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; &amp;BaseAnimal {
+</span><span>    &amp;BaseAnimal {}
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">meow</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>Now we can call <code>roam()</code> and we won’t get an infinite loop.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
+</span><span>cat.</span><span style="color:#96b5b4;">roam</span><span>();
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>base roam
+</span></code></pre>
+<h2 id="an-optional-base-type">An Optional Base Type</h2>
+<p>Instead of requiring a base struct for every object oriented trait, we
+could change our <code>base()</code> signature to use an <code>Option&lt;&gt;</code>.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Animal {
+</span><span>  </span><span style="color:#b48ead;">type </span><span>Base : Animal;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">base</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; Option&lt;&amp;</span><span style="color:#b48ead;">Self::</span><span>Base&gt; {
+</span><span>    None
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    </span><span style="color:#b48ead;">if let </span><span>Some(b) = </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">base</span><span>() {
+</span><span>      b.</span><span style="color:#96b5b4;">cry</span><span>();
+</span><span>    } </span><span style="color:#b48ead;">else </span><span>{
+</span><span>      todo!(&quot;</span><span style="color:#a3be8c;">Not yet implemented</span><span>&quot;);
+</span><span>    }
+</span><span>  }
+</span><span>  </span><span style="color:#65737e;">// ...
+</span><span>}
+</span></code></pre>
+<h2 id="how-to-extend-the-class-s-api">How to Extend the Class’s API?</h2>
+<p>One further issue is what happens when a trait is extended? This happens
+all the time with object oriented code. A subclass adds fields and new
+public methods. Adding fields is easy in this setup:</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>Bat {
+</span><span>  speed: </span><span style="color:#b48ead;">f32</span><span>,
+</span><span>  base_obj: Rat
+</span><span>}
+</span></code></pre>
+<p>Adding public “methods” that also do subtype polymorphism is less clear.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>EndangeredAnimal : Animal {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">is_endangered</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; </span><span style="color:#b48ead;">bool</span><span>;
+</span><span>}
+</span></code></pre>
+<p>I’m going to leave this as an exercise for the reader partly because I
+think it’s going to be a mess but it is doable.</p>
+<h1 id="how-do-crustaceans-actually-do-this">How do Crustaceans Actually do This?</h1>
+<p>Let’s go back to our second version of this trait.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Animal {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>);
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>);
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>);
+</span><span>}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>Cat {} 
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>Cat {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">meow</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">Zzzz</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">patter patter pounce</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">struct </span><span>Bird {} 
+</span><span>
+</span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>Bird {
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">chirp</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">Zzzz</span><span>&quot;);
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    println!(&quot;</span><span style="color:#a3be8c;">flit flit flurp</span><span>&quot;);
+</span><span>  }
+</span><span>}
+</span></code></pre>
+<p>We’ve got two struct and we can use generics to call whichever
+implementation is present.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry_to_sleep</span><span>&lt;T: Animal&gt;(</span><span style="color:#bf616a;">animal</span><span>: T) {
+</span><span>  animal.</span><span style="color:#96b5b4;">cry</span><span>();
+</span><span>  animal.</span><span style="color:#96b5b4;">cry</span><span>();
+</span><span>  animal.</span><span style="color:#96b5b4;">sleep</span><span>();
+</span><span>}
+</span></code></pre>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
+</span><span style="color:#96b5b4;">cry_to_sleep</span><span>(cat);
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
+</span><span>meow
+</span><span>Zzzz
+</span></code></pre>
+<h2 id="but-what-if-i-don-t-know-the-type-exactly">But what if I don’t know the type exactly?</h2>
+<p>Suppose you have a heterogenous list of <code>Animal</code>s and you don’t know
+their exact type any more. How do you deal with that? You can’t use the
+generic solution.</p>
+<p>Ok, here’s the really cool thing that rust does.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry_to_sleep_dynamic</span><span>(</span><span style="color:#bf616a;">animal</span><span>: &amp;dyn Animal) {
+</span><span>  animal.</span><span style="color:#96b5b4;">cry</span><span>();
+</span><span>  animal.</span><span style="color:#96b5b4;">cry</span><span>();
+</span><span>  animal.</span><span style="color:#96b5b4;">sleep</span><span>();
+</span><span>}
+</span></code></pre>
+<p>Rather than having a structural cost baked into every object that is
+capable of polymorphism with a virtual function look up, rust has
+virtual function look up on demand via its <code>dyn</code> keyword. When you use
+<code>dyn</code> you’re passing and receiving a “fat” pointer, which is two
+pointers: one to the regular struct, and another to a virtual function
+look up table.</p>
+<p>So you can call this method on bird</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> bird = Bird {};
+</span><span style="color:#96b5b4;">cry_to_sleep_dynamic</span><span>(&amp;bird);
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>chirp
+</span><span>chirp
+</span><span>Zzzz
+</span></code></pre>
+<p>or on cat.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
+</span><span style="color:#96b5b4;">cry_to_sleep_dynamic</span><span>(&amp;cat);
+</span></code></pre>
+<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
+</span><span>meow
+</span><span>Zzzz
+</span></code></pre>
+<p>So you can have dynamic polymorphism in rust whenever and with whatever
+trait you like, but the funny thing is if one has a choice between
+direct static dispatch or an indirect dynamic dispatch, one often
+prefers static dispatch.</p>
+<iframe src="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@shanecelis&#x2F;110315691471397903/embed" class="mastodon-embed" style="max-width: 100%; border: 0; display: block; margin: auto;" width="400" allowfullscreen></iframe><script src="https://mastodon.gamedev.place/embed.js" async="async"></script>
+<p>Static dispatch is known at compile time. It’s faster. It’s simpler to
+reason about. Use it if you can. I have found that when dynamic dispatch
+is available on a per call instead of a per class basis, it’s amazing
+how little I actually use it. But dynamic dispatch is there for whatever
+trait<sup class="footnote-reference"><a href="#1">1</a></sup> you need it on <em>and</em> you don’t have to rely on the original
+author knowing which methods <em>you</em> really needed to be marked “virtual”.</p>
+<h1 id="acknowledgments">Acknowledgments</h1>
+<p>Thanks to CandyCorvid and kohugaly at r/rust for their input on <a href="https://www.reddit.com/r/rust/comments/13fvpey/object_oriented_programming_in_rustyuck_and_yet/">this
+article’s
+thread</a>.</p>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>Turns out only certain traits can use <code>dyn</code>; only traits that are
+<a href="https://doc.rust-lang.org/reference/items/traits.html#object-safety">object
+safe</a>:
+roughly no generics, no constants, and accepts a <code>&amp;self</code>,
+<code>&amp;mut self</code>, <code>Box\&lt;Self\&gt;</code>, or other smart pointer to self.</p>
+</div>
+
+	</div>
+	<hr class="post-end">
+	<footer class="post-info">
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2330 Words</p>
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2023-05-07</p>
+    
+	</footer>
+  </article>
+    
+  
+  <div class="post-nav thin">
+	
+	
+  </div>
+
+  
+</main>
+
+	  </div>
+	  
+	  
+
+
+
+<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+  <p>&copy; 2023 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
+  <p>Made with <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &#183; Theme <a href="https://github.com/VersBinarii/hermit_zola" target="_blank" rel="noopener">Hermit_Zola</a>
+	
+  </p>
+</footer>
+
+
+
+
+	</div>
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+	<!-- Math rendering -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, { delimiters: [ {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+    
+		<link href="https://unpkg.com/highlightjs-badge/highlightjs/styles/vs2015.css" rel="stylesheet">
+		<!-- https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/  for min version -->
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs/highlight.pack.js"></script>
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs-badge.min.js"></script>
+		<script>
+			var pres = document.querySelectorAll("pre>code");
+			for (var i = 0; i < pres.length; i++) {
+				hljs.highlightBlock(pres[i]);
+			}
+		</script>
+		
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+			<script>
+				var options = {
+					copyIconClass: "gg-clipboard",
+					checkIconClass: "gg-check"
+				};
+				window.highlightJsBadge(options);
+			</script>
+		
+
+	
+
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+    
+    
+
+	
+  </body>
+</html>

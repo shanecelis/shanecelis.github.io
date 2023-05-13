@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta itemprop="name" content="Shane Celis" />
+  <meta itemprop="description" content="Approximating success one failure at a time" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://shanecelis.github.io/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://shanecelis.github.io/favicon-32x32.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="https://shanecelis.github.io/favicon-16x16.png"
+  />
+  <link
+    rel="shortcut icon"
+    href="https://shanecelis.github.io/favicon.ico"
+  />
+  <link rel="stylesheet" href="https://shanecelis.github.io/style.css"/>
+  
+  <title>Google Summer of Code 2013: Emacsy</title>
+  
+
+  
+
+  <body id="page">
+
+	
+<header id="site-header" class="animated slideInUp faster">
+  <div class="hdr-wrapper section-inner">
+    <div class="hdr-left">
+      <div class="site-branding">
+        <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a>
+      </div>
+      <nav class="site-nav hide-in-mobile">
+            
+        
+        <a href="https://shanecelis.github.io/posts">Posts</a>
+        
+        <a href="https://shanecelis.github.io/projects">Projects</a>
+        
+        <a href="https://shanecelis.github.io/papers">Papers</a>
+        
+        <a href="https://shanecelis.github.io/about">About</a>
+        
+      </nav>
+    </div>
+    <div class="hdr-right hdr-icons">
+      <span class="hdr-social hide-in-mobile">
+        
+
+<a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@shanecelis" target="_blank" rel="noopener me"
+   title="mastodon">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M3.018 12.008c-.032-1.26-.012-2.448-.012-3.442 0-4.338 2.843-5.61 2.843-5.61 1.433-.658 3.892-.935 6.45-.956h.062c2.557.02 5.018.298 6.451.956 0 0 2.843 1.272 2.843 5.61 0 0 .036 3.201-.396 5.424-.275 1.41-2.457 2.955-4.963 3.254-1.306.156-2.593.3-3.965.236-2.243-.103-4.014-.535-4.014-.535 0 .218.014.426.04.62.084.633.299 1.095.605 1.435.766.85 2.106.93 3.395.974 1.82.063 3.44-.449 3.44-.449l.076 1.646s-1.274.684-3.542.81c-1.25.068-2.803-.032-4.612-.51-1.532-.406-2.568-1.29-3.27-2.471-1.093-1.843-1.368-4.406-1.431-6.992zm3.3 4.937v-2.548l2.474.605a20.54 20.54 0 0 0 1.303.245c.753.116 1.538.2 2.328.235 1.019.047 1.901-.017 3.636-.224 1.663-.199 3.148-1.196 3.236-1.65.082-.422.151-.922.206-1.482a33.6 33.6 0 0 0 .137-2.245c.015-.51.02-.945.017-1.256v-.059c0-1.43-.369-2.438-.963-3.158a3.008 3.008 0 0 0-.584-.548c-.09-.064-.135-.089-.13-.087-1.013-.465-3.093-.752-5.617-.773h-.046c-2.54.02-4.62.308-5.65.782.023-.01-.021.014-.112.078a3.008 3.008 0 0 0-.584.548c-.594.72-.963 1.729-.963 3.158 0 .232 0 .397-.003.875a77.483 77.483 0 0 0 .014 2.518c.054 2.197.264 3.835.7 5.041.212.587.472 1.07.78 1.45a5.7 5.7 0 0 1-.18-1.505zM8.084 6.37a1.143 1.143 0 1 1 0 2.287 1.143 1.143 0 0 1 0-2.287z"/> </svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;github.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="github">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;twitter.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="twitter">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+  
+</a>
+
+<a href="mailto:shane.celis@gmail.com" target="_blank" rel="noopener me"
+   title="email">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+  
+</a>
+
+
+      </span>
+      <button id="menu-btn" class="hdr-btn" title="Menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-menu"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div id="mobile-menu" class="animated fast">
+  <ul>
+    
+    <li><a href="https://shanecelis.github.io/posts">Posts</a></li>
+    
+    <li><a href="https://shanecelis.github.io/projects">Projects</a></li>
+    
+    <li><a href="https://shanecelis.github.io/papers">Papers</a></li>
+    
+    <li><a href="https://shanecelis.github.io/about">About</a></li>
+    
+  </ul>
+</div>
+
+	
+	
+
+		
+<main class="site-main section-inner animated fadeIn faster">
+  <article class="thin">
+	<header class="post-header">
+	  <div class="post-meta">
+		
+		<span>Jun 05, 2013</span>
+		<small> - 
+<span class="reading-time" title="Estimated read time">
+  
+  6 min read
+  
+</span>
+</small>
+		
+            
+	  </div>
+	  <h1>Google Summer of Code 2013: Emacsy</h1>
+	</header>
+
+	<div class="content">
+        
+	  <p>Emacsy was accepted as a <a href="http://www.google-melange.com/gsoc/homepage/google/gsoc2013">2013 Google Summer of Code
+Project</a>,
+which is great news!  Emacsy is an embeddable Emacs-like library for
+<a href="http://www.gnu.org/software/guile/">GNU Guile</a> Scheme. It’s an
+attempt to extract “the Emacs way” of using, augmenting, and extending
+an application while it is running. Emacsy harbors no ambition to
+become a text editor because there is already a great Emacsy text
+editor: Emacs.  I’d like to use this post to address some features and
+implementation details that I’m personally excited about: how to do
+online help, going beyond Emacs to do job control, and some comments
+on whether Emacsy’s “shell” ought to be special.</p>
+<p>The <a href="https://google-melange.appspot.com/gsoc/proposal/review/google/gsoc2013/shanecelis/1">GSoC proposal has many
+details</a>
+about the project, but perhaps I should say who this blog entry is
+written for, as I see a handful distinct audiences: application users,
+integrators, and contributors.</p>
+<ul>
+<li>
+<p>Application users are the users of some application X that Emacsy
+has been integrated into it.  As Emacsy hasn’t been released, there
+is no real application users to speak of yet, but they’re important
+to keep in mind.</p>
+</li>
+<li>
+<p>Integrators are developers who embed Emacsy into their own
+application.  They need to know enough to integrate with it but
+don’t necessarily care about how Emacsy does its thing.</p>
+</li>
+<li>
+<p>Contributors are developers who are interested in the architecture
+and inner-workings of Emacsy and can contribute to its development.</p>
+</li>
+</ul>
+<p>These Emacsy blog posts will be of most interest to would-be contributors and
+integrators, and I will assume some familiarity with Emacs.  There’s a
+tension between features that might be nice to have but would incur a
+large burden on integrators.  It’ll be helpful to keep that tension in
+mind when deciding what features to implement and how.</p>
+<h2 id="help-will-always-be-given-in-emacsy-to-those-who-ask-for-it">Help will always be given in Emacsy to those who ask for it</h2>
+<p>Emacs has the most comprehensive online help system of any
+application; there is really nothing else like it. This is the reason
+for its claim to be
+<a href="http://www.emacswiki.org/emacs/SelfDocumentation">self-documenting</a>.
+Unfortunately because there isn’t anything else like it, it seems a
+bit alien at first.  If you don’t know what the key sequence <code>M-C-\</code>
+does, then hit <code>C-h k M-C-\</code> and Emacs will tell you that it’s bound
+to the procedure
+<a href="http://www.gnu.org/software/emacs/manual/html_node/elisp/Region-Indent.html"><code>indent-region</code></a>.
+(If this notation <code>C-h</code> for control-h is unfamiliar, please see <a href="http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/">Sacha
+Chua’s excellent one pager for
+beginners</a>.)
+If you don’t know what the procedure <code>indent-region</code> does, then hit
+<code>C-h f indent-region</code> and Emacs will describe it and even provide a
+link to the source code.  One question I’ve been struggling with is,
+how can Emacsy provide online help like Emacs does? Several ideas come
+to mind:</p>
+<ul>
+<li>
+<p><strong>Text buffer, duh.</strong> One idea is to duplicate the way Emacs does it
+by showing a read only text buffer. In Emacs all things are text
+buffers, but Emacsy does not make this presumption. Also if one must
+display a text buffer that means every integrator must figure out
+how to display this text. What if the view is larger than the
+window? Scrollbar, please. What if there are links in the text?
+Should they be clickable? Of course! Integrator, please implement
+these text features that may have nothing to do with your
+application.  This seems like too high a burden for integrators,
+even if it would be cool.</p>
+</li>
+<li>
+<p><strong>Minibuffer to the max.</strong> Just use the minibuffer for
+everything. We can get away with using the minibuffer for a lot of
+things but that would not allow us to have a comprehensive online
+help system that was comparable to Emacs’.</p>
+</li>
+<li>
+<p><strong>Use the Web, Luke.</strong> This idea struck me recently. What if when we
+wanted to show a lot of information, say about some particular
+function <code>C-h f some-fun</code>, we opened a link to some internal web
+server? Emacsy serves up the information over HTTP and the browser
+gives us a lot of features like links, styling, rich media, and
+perhaps some customization possibilities. The implementor only needs
+to send URL requests to some handler application.  Fancier
+implementors could handle these URLs internally in a web view.</p>
+</li>
+</ul>
+<p>I’m pretty taken with this last idea.  It retains the ability to let
+the application be fully self-documenting without imposing a heavy
+burden on the implementor.</p>
+<h2 id="going-beyond-emacs-job-control">Going Beyond Emacs: Job Control</h2>
+<p>One feature I’m particularly excited about is job control. How many
+times have you accidentally stumbled upon some network operation that
+causes Emacs to freeze? Granted it’ll come back if you wait, or you
+can quit <code>C-g</code> it. But wouldn’t it be nice to just suspend that
+command like you would in the shell?  Just hit <code>C-z</code> to suspend
+it. Then maybe type <code>M-x background</code> to continue running it in the
+background. That’s a feature that we can implement in Emacsy, but how?
+Allowing for job control brings up the issue of multitasking.</p>
+<h3 id="multitask-like-it-s-1999">Multitask like it’s 1999</h3>
+<p>How shall Emacsy support running multiple jobs some of which are in
+the background?  I’m going to suggest a <a href="http://en.wikipedia.org/wiki/Computer_multitasking#Cooperative_multitasking.2Ftime-sharing"><strong>cooperative
+multitasking</strong></a>
+approach rather than a <a href="http://en.wikipedia.org/wiki/Computer_multitasking#Preemptive_multitasking.2Ftime-sharing"><strong>pre-emptive
+multitasking</strong></a>
+approach.  Heresy, I know, and I know it’s not the ’90s, but hear me
+out.</p>
+<p>I like to think of Emacsy as inheriting from both Emacs and Unix.
+Unix and Emacs are somewhat odd bedfellows though. Unix is about small
+tools that do one thing well and compose easily; the shared state is
+the filesystem with little context, and it’s generally not focused on
+interactive apps. Emacs on the other hand is about having all tools,
+big and small, at one’s finger tips (key bindings); the shared state
+is Emacs’ process memory with lots of context, and it’s focused on
+interactive use.</p>
+<p>For an operating system like Unix pre-emptive multitasking is
+absolutely preferred.  Note though that the memory of each process is
+isolated from one another, so you don’t have to worry about one
+process overwriting another’s memory.  However, an Emacsy command will
+not have its memory isolated from other commands, so it seems
+inadvisable to use a pre-emptive multitasking mechanism like threads
+since the commands could then overwrite shared memory unless very
+carefully synchronized. Instead I suggest using coroutines to
+implement a cooperative multitasking system.  Only one piece of Emacsy
+code runs at any one time; thus a whole class of race conditions
+evaporate.  This doesn’t preclude one from using threads within Emacsy
+since threads are natively supported by GNU Guile, but they will have
+to work out the synchronization details themselves.</p>
+<h2 id="why-not-vimy">Why not vimy?</h2>
+<p>There are two text editors of note: Emacs and vim, so why Emacsy and
+not vimy?  Partly because I couldn’t do a vimy project justice because
+I’m not a vim user, but I think there is a larger reason than that. I
+think vim is an excellent text editor. Some of my friends are absolute
+wizards with it. I’ve had glimers of understanding the <a href="http://stackoverflow.com/questions/1218390/what-is-your-most-productive-shortcut-with-vim?page=1&amp;tab=votes#tab-top">power and
+unity of its terse
+sub-language</a>. I
+am envious of the dot <code>.</code> command. However, making the best text
+editor, sub-language and all, does not necessarily mean it would
+transfer well to other domains. Is an insert mode necessary in a CAD
+program?  What is the terse sub-language of manipulating chemical
+models? I think making something worthy of the name vimy would be very
+challenging in another domain.</p>
+<p>That said, I don’t see any reason why someone couldn’t write a
+vim-like UI using Emacsy as a starting place.  Borrowing more from the
+Unix tradition, consider the shell.  The creators of Unix didn’t make
+the shell special.  It is just another program unlike DOS’ shell, but
+that required a lot of ingenuity to invent the right six system calls
+to make that happen (Torvalds, <a href="http://books.google.com/books?id=--K-DvEj7yAC&amp;lpg=PA54&amp;ots=UnNf_jdHxV&amp;pg=PA54#v=onepage&amp;q&amp;f=false">“Just for Fun”
+54</a>).
+In <a href="https://google-melange.appspot.com/gsoc/proposal/review/google/gsoc2013/shanecelis/1">my
+proposal</a>,
+I emphasized the Key-Lookup-Execute-Command-Loop (KLECL), but in a way
+that is essentially Emacs’ shell.  One could write a different shell,
+a vim-like shell if they preferred.  That is, if Emacsy takes care to
+not make the shell special.</p>
+<h1 id="that-s-it-for-now">That’s it for now</h1>
+<p>Those are some of my current musings for Emacsy.  I’m going to try to
+record further ideas on <a href="https://github.com/shanecelis/emacsy/wiki">Emacsy’s github
+wiki</a>.  Feel free to
+contribute your own ideas there or write a comment below.  Otherwise,
+I’ll be on <a href="https://twitter.com/shanecelis">twitter</a> or hanging out in
+<code>#guile</code> on <code>freenode.net</code>.</p>
+
+	</div>
+	<hr class="post-end">
+	<footer class="post-info">
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1497 Words</p>
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2013-06-05</p>
+    
+	</footer>
+  </article>
+    
+  
+  <div class="post-nav thin">
+	
+	
+  </div>
+
+  
+</main>
+
+	  </div>
+	  
+	  
+
+
+
+<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+  <p>&copy; 2023 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
+  <p>Made with <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &#183; Theme <a href="https://github.com/VersBinarii/hermit_zola" target="_blank" rel="noopener">Hermit_Zola</a>
+	
+  </p>
+</footer>
+
+
+
+
+	</div>
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+	<!-- Math rendering -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, { delimiters: [ {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+    
+		<link href="https://unpkg.com/highlightjs-badge/highlightjs/styles/vs2015.css" rel="stylesheet">
+		<!-- https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/  for min version -->
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs/highlight.pack.js"></script>
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs-badge.min.js"></script>
+		<script>
+			var pres = document.querySelectorAll("pre>code");
+			for (var i = 0; i < pres.length; i++) {
+				hljs.highlightBlock(pres[i]);
+			}
+		</script>
+		
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+			<script>
+				var options = {
+					copyIconClass: "gg-clipboard",
+					checkIconClass: "gg-check"
+				};
+				window.highlightJsBadge(options);
+			</script>
+		
+
+	
+
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+    
+    
+
+	
+  </body>
+</html>

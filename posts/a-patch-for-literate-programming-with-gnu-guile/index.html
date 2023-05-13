@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta itemprop="name" content="Shane Celis" />
+  <meta itemprop="description" content="Approximating success one failure at a time" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://shanecelis.github.io/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://shanecelis.github.io/favicon-32x32.png" />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="https://shanecelis.github.io/favicon-16x16.png"
+  />
+  <link
+    rel="shortcut icon"
+    href="https://shanecelis.github.io/favicon.ico"
+  />
+  <link rel="stylesheet" href="https://shanecelis.github.io/style.css"/>
+  
+  <title>A Patch for Literate Programming with GNU Guile</title>
+  
+
+  
+
+  <body id="page">
+
+	
+<header id="site-header" class="animated slideInUp faster">
+  <div class="hdr-wrapper section-inner">
+    <div class="hdr-left">
+      <div class="site-branding">
+        <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a>
+      </div>
+      <nav class="site-nav hide-in-mobile">
+            
+        
+        <a href="https://shanecelis.github.io/posts">Posts</a>
+        
+        <a href="https://shanecelis.github.io/projects">Projects</a>
+        
+        <a href="https://shanecelis.github.io/papers">Papers</a>
+        
+        <a href="https://shanecelis.github.io/about">About</a>
+        
+      </nav>
+    </div>
+    <div class="hdr-right hdr-icons">
+      <span class="hdr-social hide-in-mobile">
+        
+
+<a href="https:&#x2F;&#x2F;mastodon.gamedev.place&#x2F;@shanecelis" target="_blank" rel="noopener me"
+   title="mastodon">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M3.018 12.008c-.032-1.26-.012-2.448-.012-3.442 0-4.338 2.843-5.61 2.843-5.61 1.433-.658 3.892-.935 6.45-.956h.062c2.557.02 5.018.298 6.451.956 0 0 2.843 1.272 2.843 5.61 0 0 .036 3.201-.396 5.424-.275 1.41-2.457 2.955-4.963 3.254-1.306.156-2.593.3-3.965.236-2.243-.103-4.014-.535-4.014-.535 0 .218.014.426.04.62.084.633.299 1.095.605 1.435.766.85 2.106.93 3.395.974 1.82.063 3.44-.449 3.44-.449l.076 1.646s-1.274.684-3.542.81c-1.25.068-2.803-.032-4.612-.51-1.532-.406-2.568-1.29-3.27-2.471-1.093-1.843-1.368-4.406-1.431-6.992zm3.3 4.937v-2.548l2.474.605a20.54 20.54 0 0 0 1.303.245c.753.116 1.538.2 2.328.235 1.019.047 1.901-.017 3.636-.224 1.663-.199 3.148-1.196 3.236-1.65.082-.422.151-.922.206-1.482a33.6 33.6 0 0 0 .137-2.245c.015-.51.02-.945.017-1.256v-.059c0-1.43-.369-2.438-.963-3.158a3.008 3.008 0 0 0-.584-.548c-.09-.064-.135-.089-.13-.087-1.013-.465-3.093-.752-5.617-.773h-.046c-2.54.02-4.62.308-5.65.782.023-.01-.021.014-.112.078a3.008 3.008 0 0 0-.584.548c-.594.72-.963 1.729-.963 3.158 0 .232 0 .397-.003.875a77.483 77.483 0 0 0 .014 2.518c.054 2.197.264 3.835.7 5.041.212.587.472 1.07.78 1.45a5.7 5.7 0 0 1-.18-1.505zM8.084 6.37a1.143 1.143 0 1 1 0 2.287 1.143 1.143 0 0 1 0-2.287z"/> </svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;github.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="github">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+  
+</a>
+
+<a href="https:&#x2F;&#x2F;twitter.com&#x2F;shanecelis" target="_blank" rel="noopener me"
+   title="twitter">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+  
+</a>
+
+<a href="mailto:shane.celis@gmail.com" target="_blank" rel="noopener me"
+   title="email">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+  
+</a>
+
+
+      </span>
+      <button id="menu-btn" class="hdr-btn" title="Menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-menu"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div id="mobile-menu" class="animated fast">
+  <ul>
+    
+    <li><a href="https://shanecelis.github.io/posts">Posts</a></li>
+    
+    <li><a href="https://shanecelis.github.io/projects">Projects</a></li>
+    
+    <li><a href="https://shanecelis.github.io/papers">Papers</a></li>
+    
+    <li><a href="https://shanecelis.github.io/about">About</a></li>
+    
+  </ul>
+</div>
+
+	
+	
+
+		
+<main class="site-main section-inner animated fadeIn faster">
+  <article class="thin">
+	<header class="post-header">
+	  <div class="post-meta">
+		
+		<span>May 31, 2013</span>
+		<small> - 
+<span class="reading-time" title="Estimated read time">
+  
+  4 min read
+  
+</span>
+</small>
+		
+            
+	  </div>
+	  <h1>A Patch for Literate Programming with GNU Guile</h1>
+	</header>
+
+	<div class="content">
+        
+	  <p>I wrote previously about <a href="/posts/why-im-trying-literate-programming">why I’m trying literate programming</a>. This
+post is a more about how I’m doing it. One of the requirements for
+doing literate programming is support for the #line compiler
+directive. Typically one sees these in generated source files.</p>
+<pre data-lang="c" style="background-color:#2b303b;color:#c0c5ce;" class="language-c "><code class="language-c" data-lang="c"><span style="color:#b48ead;">int </span><span style="color:#8fa1b3;">main</span><span>(</span><span style="color:#b48ead;">int </span><span style="color:#bf616a;">argc</span><span>, </span><span style="color:#b48ead;">char </span><span>*</span><span style="color:#bf616a;">argv</span><span>[]) {
+</span><span>    </span><span style="color:#b48ead;">#line</span><span> 360 &quot;hello-world.nw&quot;
+</span><span>    </span><span style="color:#96b5b4;">printf</span><span>(&quot;</span><span style="color:#a3be8c;">Hello, World!</span><span style="color:#96b5b4;">\n</span><span>&quot;);
+</span><span>}
+</span></code></pre>
+<p>This tells the compiler to report errors relative to that line in
+<code>hello-world.nw</code> instead of <code>hello-world.c</code>. This is indispensable
+when doing literate programming. If one must find the error in the
+generated source file then find the error again in the literate
+source, literate programming becomes too frustrating and cumbersome to
+use, at least for me.</p>
+<p>I’m using GNU Guile Scheme for my Google Summer of Code project
+Emacsy. Guile doesn’t have built-in support for #line directives. But
+more importantly it does have support for reader macros.  Reader
+macros allow you to define your own syntax. Macro is an overloaded
+term, so let me try to disambiguate it.</p>
+<ul>
+<li>
+<p>C Macros allow one to use C Preprocessor <code>cpp</code> as a limited
+metaprogramming facility, but they are tricky to get right because
+of the language impedance mismatch of C and cpp.</p>
+</li>
+<li>
+<p>Lisp macros are an entirely different beast. They allow one to write
+code that writes code. Whenever you find yourself writing
+boilerplate code a second or third time, a macro is waiting to be
+born. Macros allow the user to extend the compiler in a principled
+way. Lisp macros work on S-expressions. They provide instructions
+how to transform a given S-expression to some other S-expression.</p>
+</li>
+<li>
+<p>Reader macros, or <a href="http://www.gnu.org/software/guile/manual/guile.html#Reader-Extensions">reader
+extensions</a>,
+are pieces of code that transform some arbitrary stream of
+characters into S-expressions. They allow one to express themselves
+in something other than S-expressions. For instance, maybe you want
+a hashmap literal in Guile.  You can write a reader macro that makes
+hashes look like your favorite language.</p>
+</li>
+</ul>
+<pre data-lang="lisp" style="background-color:#2b303b;color:#c0c5ce;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span>(define hash #{a =&gt; </span><span style="color:#d08770;">1</span><span>, b =&gt; </span><span style="color:#d08770;">2</span><span>})
+</span></code></pre>
+<p>The above might be translated into something that looks like this:</p>
+<pre data-lang="lisp" style="background-color:#2b303b;color:#c0c5ce;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span>(define hash (</span><span style="color:#b48ead;">let </span><span>((h (</span><span style="color:#96b5b4;">make-hash-table</span><span>)))
+</span><span>               (hashq-</span><span style="color:#96b5b4;">set</span><span>! h &#39;a </span><span style="color:#d08770;">1</span><span>)
+</span><span>               (hashq-</span><span style="color:#96b5b4;">set</span><span>! h &#39;b </span><span style="color:#d08770;">2</span><span>)
+</span><span>              h))
+</span></code></pre>
+<p>Armed with reader macros, we can extend the syntax of our language.
+One constraint with reader macros is that it must start with a #
+character, which is good because it lets the reader know that a
+reader macro is in play.  Conveniently the # character as the start
+of reader macros is the same as that typically used for compiler
+derectives.</p>
+<h2 id="implementing-line-as-a-reader-macro">Implementing #line as a Reader Macro</h2>
+<p>Given that we can extend the syntax of our language by using a reader
+macro, it seems like we should be able to write a #line pragma quite
+easily.  Here was my first attempt.</p>
+<pre data-lang="lisp" style="background-color:#2b303b;color:#c0c5ce;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span>(</span><span style="color:#96b5b4;">read</span><span>-hash-extend 
+</span><span> </span><span style="color:#d08770;">#\l 
+</span><span> (</span><span style="color:#96b5b4;">lambda </span><span>(</span><span style="color:#96b5b4;">char</span><span> port)
+</span><span>   (</span><span style="color:#b48ead;">let</span><span>* ((ine (</span><span style="color:#96b5b4;">read</span><span> port))
+</span><span>          (lineno (</span><span style="color:#96b5b4;">read</span><span> port))
+</span><span>          (filename (</span><span style="color:#96b5b4;">read</span><span> port)))
+</span><span>     (</span><span style="color:#b48ead;">if </span><span>(not (eq? ine &#39;ine))
+</span><span>         (</span><span style="color:#96b5b4;">error 
+</span><span>          (</span><span style="color:#96b5b4;">format 
+</span><span>           </span><span style="color:#d08770;">#f
+</span><span>           &quot;</span><span style="color:#a3be8c;">Expected &#39;#line &lt;line-number&gt; &lt;filename&gt;&#39;; got &#39;#~a~a ~a </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">~a</span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">&#39;.</span><span>&quot; 
+</span><span>            </span><span style="color:#96b5b4;">char</span><span> ine lineno filename)))
+</span><span>     (</span><span style="color:#96b5b4;">set</span><span>-port-filename! port filename)
+</span><span>     (</span><span style="color:#96b5b4;">set</span><span>-port-line! port lineno)
+</span><span>     (</span><span style="color:#96b5b4;">set</span><span>-port-column! port </span><span style="color:#d08770;">0</span><span>)
+</span><span>     &quot;&quot;)))
+</span></code></pre>
+<p>So the following code </p>
+<pre data-lang="lisp" style="background-color:#2b303b;color:#c0c5ce;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span>(define (</span><span style="color:#96b5b4;">f</span><span> x)
+</span><span style="color:#d08770;">#line 314 </span><span>&quot;</span><span style="color:#a3be8c;">increment-literately.nw</span><span>&quot;
+</span><span>  (+ x </span><span style="color:#d08770;">1</span><span>))
+</span></code></pre>
+<p>will turn into</p>
+<pre data-lang="lisp" style="background-color:#2b303b;color:#c0c5ce;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span>(define (</span><span style="color:#96b5b4;">f</span><span> x)
+</span><span>&quot;&quot;
+</span><span>  (+ x </span><span style="color:#d08770;">1</span><span>))
+</span></code></pre>
+<p>In this case, that zero-length string won’t cause much of problem, and
+it will work for top-level definitions because the strings will just
+be ignored, but consider this following bit of code.</p>
+<pre data-lang="lisp" style="background-color:#2b303b;color:#c0c5ce;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span>(+ </span><span style="color:#d08770;">1
+</span><span style="color:#d08770;">#line 628 </span><span>&quot;</span><span style="color:#a3be8c;">incrementally-literate.nw</span><span>&quot;
+</span><span>  </span><span style="color:#d08770;">2
+</span><span>  </span><span style="color:#d08770;">3</span><span>)
+</span></code></pre>
+<p>This bit of code will become <code>(+ 1 &quot;&quot; 2 3)</code>, which will throw an
+exception and does not preserve the original meaning of the code.
+Basically, we want a reader macro that emits nothing.  We want a
+reader macro whose output is treated like a comment.</p>
+<p>I had hoped that the other commenting facilities in Guile like
+<a href="http://srfi.schemers.org/srfi-62/srfi-62.html">S-expression comments</a>
+<code>(+ 0 #;(+ 1 2) 3) =&gt; 3</code>; or <a href="http://www.gnu.org/software/guile/manual/guile.html#Block-Comments">block
+comments</a>,
+e.g. <code>#| this is a comment |#</code> were implemented as reader extensions.
+However, it turns out these are not and could not be implemented as
+reader extensions in Scheme.  Luckily, Guile is Free Software so we
+can go spelunking and fix it.</p>
+<p>I found them both implemented in <code>libguile/read.c</code>.  The reason we
+can’t implement these as reader extensions is because whatever the
+reader extension procedure returns is treated as being from <code>(read ...)</code>.  So we need some way to tell it that nothing was read.  There
+are many ways to try to represent this.</p>
+<ul>
+<li>
+<p>One could have a sentinel value that is treated as though it were
+nothing, e.g. any reader extension that emits the symbol
+<code>'no-reader-output</code> is one such solution.  But what if the reader
+macro has output that coincides with the symbol?</p>
+</li>
+<li>
+<p>One could attach some property to the reader extension procedure to
+signify that this reader extension emits nothing.  This is how my
+patch is implemented.  The downside of this is that a procedure may
+not choose to emit or not during its evaluation. As I wrote this
+article I realized I had missed a really good option.</p>
+</li>
+<li>
+<p>The question is, what is the best is a way to represent no value or
+nothing in Scheme?  At first I thought, “This was impossible. All
+Scheme procedures return some value.  Some return multiple values.”
+Then it hit me, the <code>values</code> procedure can be used to return one,
+more, or no values.  Sigh.  Well, I guess I ought to change my
+patch.</p>
+</li>
+</ul>
+
+	</div>
+	<hr class="post-end">
+	<footer class="post-info">
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>931 Words</p>
+    
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2013-05-31</p>
+    
+	</footer>
+  </article>
+    
+  
+  <div class="post-nav thin">
+	
+	
+  </div>
+
+  
+</main>
+
+	  </div>
+	  
+	  
+
+
+
+<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+  <p>&copy; 2023 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
+  <p>Made with <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &#183; Theme <a href="https://github.com/VersBinarii/hermit_zola" target="_blank" rel="noopener">Hermit_Zola</a>
+	
+  </p>
+</footer>
+
+
+
+
+	</div>
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+	<!-- Math rendering -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, { delimiters: [ {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+    
+		<link href="https://unpkg.com/highlightjs-badge/highlightjs/styles/vs2015.css" rel="stylesheet">
+		<!-- https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.1.1/build/styles/  for min version -->
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs/highlight.pack.js"></script>
+		<script src="https://unpkg.com/highlightjs-badge/highlightjs-badge.min.js"></script>
+		<script>
+			var pres = document.querySelectorAll("pre>code");
+			for (var i = 0; i < pres.length; i++) {
+				hljs.highlightBlock(pres[i]);
+			}
+		</script>
+		
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+			<script>
+				var options = {
+					copyIconClass: "gg-clipboard",
+					checkIconClass: "gg-check"
+				};
+				window.highlightJsBadge(options);
+			</script>
+		
+
+	
+
+	
+	<script src="https://shanecelis.github.io/js/main.js"></script>
+
+    
+    
+
+	
+  </body>
+</html>
