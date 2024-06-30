@@ -9,6 +9,28 @@ tagline = "\"The only difference between science and screwing around is when you
   
   {{ tweet(url="https://twitter.com/shanecelis/status/1181610562066759681?s=20&t=HwqbEWrlGGGTbcdRNrf_9A") }}
 
+### Open Source Rust Libraries
+- [dbg_if](https://crates.io/crates/dbg_if), use `dbg!` in the loop without terminal woes.
+
+- [keyseq](https://crates.io/crates/keyseq), macro for defining key sequences `keyseq!{ ctrl-A }` for bevy and winit. 
+
+- [bevy_plane_cut](https://crates.io/crates/bevy_plane_cut), a visual plane cut shader for bevy.
+
+- [frayed](https://crates.io/crates/frayed), a collection of utilities for unfused, or "frayed", iterators.
+
+- [bevy_terminal_shader](https://crates.io/crates/bevy_terminal_shader), a port of an oscilloscope-like shader for bevy.
+
+- [bevy_video_glitch](https://crates.io/crates/bevy_video_glitch), a port of a full-screen video effect.
+
+- [trowel](https://github.com/shanecelis/trowel), an alternative firmware implementation for the [Sprig](https://sprig.hackclub.com) game console.
+
+#### Invited to Maintain after Submitting Significant Pull Requests
+
+- [bevy-input-sequence](https://crates.io/crates/bevy-input-sequence) listen for key or gamepad button sequences in bevy.
+
+- [trie-rs](https://crates.io/crates/trie-rs), a memory-efficient trie.
+
+
 ### [Paid Unity Assets](http://seawisphunter.com/#products)
 
 - [Minibuffer Console](https://assetstore.unity.com/packages/tools/input-management/minibuffer-console-72667) is a developer console for Unity that is very Emacs-y.
