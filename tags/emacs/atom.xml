@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>Shane Celis - emacs</title>
     <subtitle>Approximating success one failure at a time</subtitle>
-    <link href="https://shanecelis.github.io/tags/emacs/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="https://shanecelis.github.io"/>
+    <link rel="self" type="application/atom+xml" href="https://shanecelis.github.io/tags/emacs/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://shanecelis.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2013-06-15T00:00:00+00:00</updated>
     <id>https://shanecelis.github.io/tags/emacs/atom.xml</id>
@@ -11,13 +11,19 @@
         <title>The Garden v 2.0: A Parable Inspired by the Church of Emacs</title>
         <published>2013-06-15T00:00:00+00:00</published>
         <updated>2013-06-15T00:00:00+00:00</updated>
+        
         <author>
-          <name>Unknown</name>
+          <name>
+            
+              Unknown
+            
+          </name>
         </author>
-        <link rel="alternate" href="https://shanecelis.github.io/posts/the-garden/" type="text/html"/>
+        
+        <link rel="alternate" type="text/html" href="https://shanecelis.github.io/posts/the-garden/"/>
         <id>https://shanecelis.github.io/posts/the-garden/</id>
         
-        <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_1.png&quot; alt=&quot;Page 1&quot; &#x2F;&gt;
+        <content type="html" xml:base="https://shanecelis.github.io/posts/the-garden/">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_1.png&quot; alt=&quot;Page 1&quot; &#x2F;&gt;
 &lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_2.png&quot; alt=&quot;Page 2&quot; &#x2F;&gt;
 &lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_3.png&quot; alt=&quot;Page 3&quot; &#x2F;&gt;
 &lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_4.png&quot; alt=&quot;Page 4&quot; &#x2F;&gt;
@@ -33,13 +39,19 @@
         <title>Why I&#x27;m Trying Literate Programming</title>
         <published>2013-05-20T00:00:00+00:00</published>
         <updated>2013-05-20T00:00:00+00:00</updated>
+        
         <author>
-          <name>Unknown</name>
+          <name>
+            
+              Unknown
+            
+          </name>
         </author>
-        <link rel="alternate" href="https://shanecelis.github.io/posts/why-im-trying-literate-programming/" type="text/html"/>
+        
+        <link rel="alternate" type="text/html" href="https://shanecelis.github.io/posts/why-im-trying-literate-programming/"/>
         <id>https://shanecelis.github.io/posts/why-im-trying-literate-programming/</id>
         
-        <content type="html">&lt;p&gt;I decided to experiment with literate programming recently because I
+        <content type="html" xml:base="https://shanecelis.github.io/posts/why-im-trying-literate-programming/">&lt;p&gt;I decided to experiment with literate programming recently because I
 felt like something must be wrong with this story: A colleague and I
 began a research project using MATLAB for a class.  We both started
 with about the same amount of MATLAB experience: close to nil.  We

@@ -37,9 +37,11 @@
       <nav class="site-nav hide-in-mobile">
             
         
-        <a href="https://shanecelis.github.io/posts">Posts</a>
-        
         <a href="https://shanecelis.github.io/projects">Projects</a>
+        
+        <a href="https://shanecelis.github.io/resume">Resume</a>
+        
+        <a href="https://shanecelis.github.io/posts">Posts</a>
         
         <a href="https://shanecelis.github.io/papers">Papers</a>
         
@@ -105,9 +107,11 @@
 <div id="mobile-menu" class="animated fast">
   <ul>
     
-    <li><a href="https://shanecelis.github.io/posts">Posts</a></li>
-    
     <li><a href="https://shanecelis.github.io/projects">Projects</a></li>
+    
+    <li><a href="https://shanecelis.github.io/resume">Resume</a></li>
+    
+    <li><a href="https://shanecelis.github.io/posts">Posts</a></li>
     
     <li><a href="https://shanecelis.github.io/papers">Papers</a></li>
     
@@ -220,7 +224,7 @@ easily.  Here was my first attempt.</p>
 </span><span>     (</span><span style="color:#96b5b4;">set</span><span>-port-column! port </span><span style="color:#d08770;">0</span><span>)
 </span><span>     &quot;&quot;)))
 </span></code></pre>
-<p>So the following code </p>
+<p>So the following code</p>
 <pre data-lang="lisp" style="background-color:#2b303b;color:#c0c5ce;" class="language-lisp "><code class="language-lisp" data-lang="lisp"><span>(define (</span><span style="color:#96b5b4;">f</span><span> x)
 </span><span style="color:#d08770;">#line 314 </span><span>&quot;</span><span style="color:#a3be8c;">increment-literately.nw</span><span>&quot;
 </span><span>  (+ x </span><span style="color:#d08770;">1</span><span>))
@@ -238,7 +242,7 @@ be ignored, but consider this following bit of code.</p>
 </span><span>  </span><span style="color:#d08770;">2
 </span><span>  </span><span style="color:#d08770;">3</span><span>)
 </span></code></pre>
-<p>This bit of code will become <code>(+ 1 &quot;&quot; 2 3)</code>, which will throw an
+<p>This bit of code will become <code>(+ 1 "" 2 3)</code>, which will throw an
 exception and does not preserve the original meaning of the code.
 Basically, we want a reader macro that emits nothing.  We want a
 reader macro whose output is treated like a comment.</p>
@@ -305,7 +309,7 @@ patch.</p>
 
 
 <footer id="site-footer" class="section-inner thin animated fadeIn faster">
-  <p>&copy; 2023 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
+  <p>&copy; 2024 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
   <p>Made with <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &#183; Theme <a href="https://github.com/VersBinarii/hermit_zola" target="_blank" rel="noopener">Hermit_Zola</a>
 	
   </p>

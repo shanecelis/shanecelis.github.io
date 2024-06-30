@@ -2,8 +2,8 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>Shane Celis - comic</title>
     <subtitle>Approximating success one failure at a time</subtitle>
-    <link href="https://shanecelis.github.io/tags/comic/atom.xml" rel="self" type="application/atom+xml"/>
-    <link href="https://shanecelis.github.io"/>
+    <link rel="self" type="application/atom+xml" href="https://shanecelis.github.io/tags/comic/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://shanecelis.github.io"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2013-06-18T00:00:00+00:00</updated>
     <id>https://shanecelis.github.io/tags/comic/atom.xml</id>
@@ -11,13 +11,19 @@
         <title>The Fall of Man was Positively Humane: A Naturalist&#x27;s Interpretation of The Fall</title>
         <published>2013-06-18T00:00:00+00:00</published>
         <updated>2013-06-18T00:00:00+00:00</updated>
+        
         <author>
-          <name>Unknown</name>
+          <name>
+            
+              Unknown
+            
+          </name>
         </author>
-        <link rel="alternate" href="https://shanecelis.github.io/posts/genesis/" type="text/html"/>
+        
+        <link rel="alternate" type="text/html" href="https://shanecelis.github.io/posts/genesis/"/>
         <id>https://shanecelis.github.io/posts/genesis/</id>
         
-        <content type="html">&lt;p&gt;I made &lt;a href=&quot;&#x2F;posts&#x2F;the-garden&#x2F;&quot;&gt;a geeky comic&lt;&#x2F;a&gt; that trades off the
+        <content type="html" xml:base="https://shanecelis.github.io/posts/genesis/">&lt;p&gt;I made &lt;a href=&quot;&#x2F;posts&#x2F;the-garden&#x2F;&quot;&gt;a geeky comic&lt;&#x2F;a&gt; that trades off the
 story of The Garden of Eden and the Fall of Man.  I do not endeavor to
 explain that comic here, but it is apparent that the interpretation of
 the Fall of Man is colored in such a negative light that I feel I must
@@ -58,7 +64,7 @@ die” (King James Version, Gen. 2.17).&lt;&#x2F;p&gt;
 &lt;p&gt;Of course, Adam and Eve do eat from the Tree of Knowledge.  It is the
 consequences of that action that propels this naturalistic
 interpretation.  Let us address some cherry-picked consequences in
-turn. &lt;&#x2F;p&gt;
+turn.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;child-birth&quot;&gt;Child Birth&lt;&#x2F;h2&gt;
 &lt;p&gt;God punishes women with difficult child birth.&lt;&#x2F;p&gt;
 &lt;blockquote&gt;
@@ -209,13 +215,19 @@ the flaming sword and claim the Tree of Life for ourselves.&lt;&#x2F;p&gt;
         <title>The Garden v 2.0: A Parable Inspired by the Church of Emacs</title>
         <published>2013-06-15T00:00:00+00:00</published>
         <updated>2013-06-15T00:00:00+00:00</updated>
+        
         <author>
-          <name>Unknown</name>
+          <name>
+            
+              Unknown
+            
+          </name>
         </author>
-        <link rel="alternate" href="https://shanecelis.github.io/posts/the-garden/" type="text/html"/>
+        
+        <link rel="alternate" type="text/html" href="https://shanecelis.github.io/posts/the-garden/"/>
         <id>https://shanecelis.github.io/posts/the-garden/</id>
         
-        <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_1.png&quot; alt=&quot;Page 1&quot; &#x2F;&gt;
+        <content type="html" xml:base="https://shanecelis.github.io/posts/the-garden/">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_1.png&quot; alt=&quot;Page 1&quot; &#x2F;&gt;
 &lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_2.png&quot; alt=&quot;Page 2&quot; &#x2F;&gt;
 &lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_3.png&quot; alt=&quot;Page 3&quot; &#x2F;&gt;
 &lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;the-garden&#x2F;Page_4.png&quot; alt=&quot;Page 4&quot; &#x2F;&gt;
