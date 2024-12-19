@@ -34,10 +34,8 @@ wrote them this email:
 They were kind enough to get back to me the next day and let me know the
 position was closed. Still it got me excited about actually finding a rust job.
 The jobs for rust are not abundant. Developer enthusiasm for rust gives me
-confidence that jobs will follow; we're just early to the scene.
-
-Writing the email above made me realize that, yes, I would like to find a job in
-rust. So if you've got a remote rust position or know of one, [let me
+confidence that jobs will follow; we're just early to the scene. So if you've
+got a remote rust position or know of one, [let me
 know](https://mastodon.gamedev.place/@shanecelis). I'm happy to chat.
 
 [0]: https://www.shanecelis.com/resume/resume-2024-07-01.pdf
