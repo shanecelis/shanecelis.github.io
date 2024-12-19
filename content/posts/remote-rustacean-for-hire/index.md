@@ -36,8 +36,9 @@ position was closed. Still it got me excited about actually finding a rust job.
 The jobs for rust are not abundant. Developer enthusiasm for rust gives me
 confidence that jobs will follow; we're just early to the scene.
 
-I put this post together to salvage my attempt to find a job. So if you've got a
-remote rust position or know of one, let me know. I'd be happy to chat.
+Writing the email above made me realize that, yes, I would like to find a job in
+rust. So if you've got a remote rust position or know of one, [let me
+know](https://mastodon.gamedev.place/@shanecelis). I'm happy to chat.
 
 [0]: https://www.shanecelis.com/resume/resume-2024-07-01.pdf
 [1]: https://github.com/shanecelis/trowel
