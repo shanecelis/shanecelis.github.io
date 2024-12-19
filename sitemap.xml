@@ -29,6 +29,10 @@
         <lastmod>2023-05-07</lastmod>
     </url>
     <url>
+        <loc>https://shanecelis.github.io/posts/remote-rustacean-for-hire/</loc>
+        <lastmod>2024-12-19</lastmod>
+    </url>
+    <url>
         <loc>https://shanecelis.github.io/posts/the-garden/</loc>
         <lastmod>2013-06-15</lastmod>
     </url>
@@ -59,5 +63,8 @@
     </url>
     <url>
         <loc>https://shanecelis.github.io/tags/literate-programming/</loc>
+    </url>
+    <url>
+        <loc>https://shanecelis.github.io/tags/rust/</loc>
     </url>
 </urlset>

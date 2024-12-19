@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Shane Celis - rust</title>
+    <subtitle>Approximating success one failure at a time</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://shanecelis.github.io/tags/rust/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://shanecelis.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-12-19T00:00:00+00:00</updated>
+    <id>https://shanecelis.github.io/tags/rust/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Remote Rustacean for Hire</title>
+        <published>2024-12-19T00:00:00+00:00</published>
+        <updated>2024-12-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://shanecelis.github.io/posts/remote-rustacean-for-hire/"/>
+        <id>https://shanecelis.github.io/posts/remote-rustacean-for-hire/</id>
+        
+        <content type="html" xml:base="https://shanecelis.github.io/posts/remote-rustacean-for-hire/">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;shanecelis.github.io&#x2F;posts&#x2F;remote-rustacean-for-hire&#x2F;cute-crab-on-phone.jpg&quot; alt=&quot;An abstract crab hovering over a typewriter.&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I wrote in to a job post by a founder that was emphatic about rust, either you
+knew or you had a background in optimization and &lt;em&gt;eagerly&lt;&#x2F;em&gt; wanted to learn it. I
+wrote them this email:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Hello &lt;strong&gt;REDACTED&lt;&#x2F;strong&gt;,&lt;&#x2F;p&gt;
+&lt;p&gt;I’m responding to your call for applicants on &lt;strong&gt;REDACTED&lt;&#x2F;strong&gt;. I’ve been using and
+enamored with rust for a couple years and am looking for a rust job, so
+naturally your position looks appealing to me. I’ll include a link to my
+&lt;a href=&quot;https:&#x2F;&#x2F;www.shanecelis.com&#x2F;resume&#x2F;resume-2024-07-01.pdf&quot;&gt;resume&lt;&#x2F;a&gt;, but perhaps more importantly I can share some rust projects I’ve
+done.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;shanecelis&#x2F;trowel&quot;&gt;Trowel&lt;&#x2F;a&gt; is an embedded firmware I wrote for a handheld game console made by
+HackClub while working there. Trying to wring more performance out of that
+console is what first drew me to rust. It was good exposure to no_std. Lots of
+optimization opportunities remain on that platform.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ve been learning and excited by the Bevy game engine, which is written in
+rust. I just recently released a &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;shanecelis&#x2F;bevy_minibuffer&quot;&gt;gamedev console&lt;&#x2F;a&gt; for it. I’ve also
+contributed to some rust projects both for features and performance; see this
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;not-elm&#x2F;bevy-input-sequence&#x2F;pull&#x2F;7&quot;&gt;PR&lt;&#x2F;a&gt; for an example which happens to discuss some Big O improvements.&lt;&#x2F;p&gt;
+&lt;p&gt;I’m located in the US on the East Coast. Let’s chat sometime.&lt;&#x2F;p&gt;
+&lt;p&gt;-Shane&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;They were kind enough to get back to me the next day and let me know the
+position was closed. Still it got me excited about actually finding a rust job.
+The jobs for rust are not abundant. Developer enthusiasm for rust gives me
+confidence that jobs will follow; we’re just early to the scene.&lt;&#x2F;p&gt;
+&lt;p&gt;I put this post together to salvage my attempt to find a job. So if you’ve got a
+remote rust position or know of one, let me know. I’d be happy to chat.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
