@@ -19,7 +19,7 @@ build: all
 
 .PHONY: deploy
 deploy: build
-	cd public && gh-pages
+	gh-pages -d public --dotfiles
 
 .PHONY: serve
 serve: all
