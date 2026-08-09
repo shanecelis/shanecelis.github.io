@@ -272,8 +272,6 @@ canonical object oriented animal example.</p>
 <p>We can exercise it like so.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>Cat::cry();
 </span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
-</span></code></pre>
 <p><a href="https://www.deviantart.com/pixelpandaarts/art/Crying-Cat-Meme-900571649">
 <img alt="Crying cat meme in pixel art form by
 PixelPandaArts" src="https://shanecelis.github.io/processed_images/crying-cat-meme.a0b5e1ba996b6a5a.png" />
@@ -303,8 +301,6 @@ called <code>Bird</code>.</p>
 <p>We can of couse make calls on the class like so.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>Bird::roam();
 </span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>flit flit flurp
-</span></code></pre>
 <p>But we can also use rust’s generics to write code that will handle any
 <code>Animal</code> struct without requiring an instance.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry_to_sleep</span><span>&lt;T: Animal&gt;() {
@@ -319,15 +315,7 @@ a turbo fish. I don’t know why. Does it <code>::&lt;&gt;</code> look like a fi
 I can see it now.</a></p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>cry_to_sleep::&lt;Cat&gt;();
 </span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
-</span><span>meow
-</span><span>Zzzz
-</span></code></pre>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span>cry_to_sleep::&lt;Bird&gt;();
-</span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>chirp
-</span><span>chirp
-</span><span>Zzzz
 </span></code></pre>
 <p>I think this is pretty cool. It was only recently that <a href="https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members">C# got interface
 static
@@ -377,9 +365,6 @@ Gorilla class.</p>
 </span><span>
 </span><span>gorilla_keeper::&lt;Gorilla&gt;();
 </span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Made a gorilla
-</span><span>Made a gorilla
-</span></code></pre>
 <p>Then you could make a class responsible for making instances of itself
 without a factory class, and you could substitute other classes that
 were their own factory too.</p>
@@ -394,9 +379,6 @@ were their own factory too.</p>
 </span><span>}
 </span><span>
 </span><span>gorilla_keeper::&lt;MockGorilla&gt;();
-</span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>Made a mock gorilla
-</span><span>Made a mock gorilla
 </span></code></pre>
 <p>This static polymorphism is limited however: the type must be known at
 compile time so the compiler can emit code for a concrete function that
@@ -432,8 +414,6 @@ object. To do that in rust, we add the <code>&amp;self</code> parameter to our t
 <p>Now let’s try and run it.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
 </span><span>cat.</span><span style="color:#96b5b4;">cry</span><span>();
-</span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
 </span></code></pre>
 <p>It does what we expect. But it does not offer any subclass polymorphism.
 There’s no means to inherit <code>Cat</code>’s behavior.</p>
@@ -484,15 +464,9 @@ doesn’t it? But we need to be able to get an instance of the base
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
 </span><span>cat.</span><span style="color:#96b5b4;">cry</span><span>();
 </span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
-</span></code></pre>
 <p>But calling the unimplemented <code>roam()</code> will cause a stack overflow.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
 </span><span>cat.</span><span style="color:#96b5b4;">roam</span><span>();
-</span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>
-</span><span>thread &#39;main&#39; has overflowed its stack
-</span><span>fatal runtime error: stack overflow
 </span></code></pre>
 <p>The reason that happens is because we infinitely recurse down the base
 type. We call <code>self.base().base().base()...</code> when there’s no default
@@ -502,6 +476,20 @@ functions to prevent infinite recursion.</p>
 <p>We can rectify that problem by defining a base animal type that
 implements all the functions. This is the base case for our recursive
 dynamic dispatcher.</p>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">trait </span><span>Animal {
+</span><span>  </span><span style="color:#b48ead;">type </span><span>Base : Animal;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">base</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; &amp;</span><span style="color:#b48ead;">Self::</span><span>Base;
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">cry</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">base</span><span>().</span><span style="color:#96b5b4;">cry</span><span>();
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">sleep</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">base</span><span>().</span><span style="color:#96b5b4;">sleep</span><span>();
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">roam</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) {
+</span><span>    </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">base</span><span>().</span><span style="color:#96b5b4;">roam</span><span>();
+</span><span>  }
+</span><span>}
+</span></code></pre>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">struct </span><span>BaseAnimal {}
 </span><span>
 </span><span style="color:#b48ead;">impl </span><span>Animal </span><span style="color:#b48ead;">for </span><span>BaseAnimal {
@@ -535,8 +523,6 @@ dynamic dispatcher.</p>
 <p>Now we can call <code>roam()</code> and we won’t get an infinite loop.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
 </span><span>cat.</span><span style="color:#96b5b4;">roam</span><span>();
-</span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>base roam
 </span></code></pre>
 <h2 id="an-optional-base-type">An Optional Base Type</h2>
 <p>Instead of requiring a base struct for every object oriented trait, we
@@ -619,10 +605,6 @@ implementation is present.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
 </span><span style="color:#96b5b4;">cry_to_sleep</span><span>(cat);
 </span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
-</span><span>meow
-</span><span>Zzzz
-</span></code></pre>
 <h2 id="but-what-if-i-don-t-know-the-type-exactly">But what if I don’t know the type exactly?</h2>
 <p>Suppose you have a heterogenous list of <code>Animal</code>s and you don’t know
 their exact type any more. How do you deal with that? You can’t use the
@@ -644,17 +626,9 @@ look up table.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> bird = Bird {};
 </span><span style="color:#96b5b4;">cry_to_sleep_dynamic</span><span>(&amp;bird);
 </span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>chirp
-</span><span>chirp
-</span><span>Zzzz
-</span></code></pre>
 <p>or on cat.</p>
 <pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#b48ead;">let</span><span> cat = Cat {};
 </span><span style="color:#96b5b4;">cry_to_sleep_dynamic</span><span>(&amp;cat);
-</span></code></pre>
-<pre data-lang="txt" style="background-color:#2b303b;color:#c0c5ce;" class="language-txt "><code class="language-txt" data-lang="txt"><span>meow
-</span><span>meow
-</span><span>Zzzz
 </span></code></pre>
 <p>So you can have dynamic polymorphism in rust whenever and with whatever
 trait you like, but the funny thing is if one has a choice between
@@ -683,7 +657,7 @@ roughly no generics, no constants, and accepts a <code>&amp;self</code>,
 	<hr class="post-end">
 	<footer class="post-info">
     
-    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2330 Words</p>
+    <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>2295 Words</p>
     
     <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2023-05-07</p>
     
@@ -706,7 +680,7 @@ roughly no generics, no constants, and accepts a <code>&amp;self</code>,
 
 
 <footer id="site-footer" class="section-inner thin animated fadeIn faster">
-  <p>&copy; 2025 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
+  <p>&copy; 2026 <a href="https:&#x2F;&#x2F;shanecelis.github.io">Shane Celis</a></p>
   <p>Made with <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &#183; Theme <a href="https://github.com/VersBinarii/hermit_zola" target="_blank" rel="noopener">Hermit_Zola</a>
 	
   </p>
